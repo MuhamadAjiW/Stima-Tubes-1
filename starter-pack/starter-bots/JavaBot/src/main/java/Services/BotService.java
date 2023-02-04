@@ -16,7 +16,6 @@ public class BotService {
         this.gameState = new GameState();
     }
 
-
     public GameObject getBot() {
         return this.bot;
     }
@@ -33,11 +32,20 @@ public class BotService {
         this.playerAction = playerAction;
     }
 
+    public void setPlayerHeading(int direction) {
+        this.playerAction.heading = direction;
+    }
+
     public void computeNextPlayerAction(PlayerAction playerAction) {
+        StateMachine botState = new StateMachine();
+
+        playerAction = botState.determineAction(gameState, playerAction);
+
         playerAction.action = PlayerActions.FORWARD;
         playerAction.heading = new Random().nextInt(360);
 
-        if (!gameState.getGameObjects().isEmpty()) {
+        if (!gameState.getGameObjects().isEmpty()) { // kalo game belum beres
+
             var foodList = gameState.getGameObjects()
                     .stream().filter(item -> item.getGameObjectType() == ObjectTypes.FOOD)
                     .sorted(Comparator
