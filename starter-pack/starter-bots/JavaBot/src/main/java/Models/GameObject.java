@@ -18,7 +18,7 @@ public class GameObject {
   public Integer ShieldCount;
 
   public GameObject(UUID id, Integer size, Integer speed, Integer currentHeading, Position position, ObjectTypes gameObjectType, Integer Effects, Integer TorpedoSalvoCount, Integer SupernovaAvailable, Integer TeleporterCount, Integer ShieldCount) {
-    // ini urutan toStateList
+    // ini urutan STATELIST
     // size, speed, currentHeading, gameobjecttype, X, Y, ?effecthashcode, torpedosalvocount, supernovaavailable, teleportercount, shieldcount
     this.id = id;
     this.size = size;

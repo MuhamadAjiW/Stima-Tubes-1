@@ -37,6 +37,7 @@ public class Main {
             Position position = new Position();
             GameObject bot = new GameObject(id, 10, 20, 0, position, ObjectTypes.PLAYER, 0, 0, 1, 0, 0);
             botService.setBot(bot);
+            
         }, UUID.class);
 
         hubConnection.on("ReceiveGameState", (gameStateDto) -> {
@@ -58,7 +59,7 @@ public class Main {
 
         Thread.sleep(1000);
         System.out.println("Registering with the runner...");
-        hubConnection.send("Register", token, "Coffee Bot");
+        hubConnection.send("Register", token, "T~T_k3nsl3rBr0w0ughh_T~T");
 
         //This is a blocking call
         hubConnection.start().subscribe(() -> {

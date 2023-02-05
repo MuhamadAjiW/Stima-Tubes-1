@@ -6,6 +6,5 @@ cd ./logger-publish/ && sleep 1 && dotnet Logger.dll &
 cd ./reference-bot-publish/ && sleep 3 && dotnet ReferenceBot.dll &
 cd ./reference-bot-publish/ && sleep 3 && dotnet ReferenceBot.dll &
 cd ./reference-bot-publish/ && sleep 3 && dotnet ReferenceBot.dll &
-cd ./reference-bot-publish/ && sleep 3 && dotnet ReferenceBot.dll &
 
 wait
