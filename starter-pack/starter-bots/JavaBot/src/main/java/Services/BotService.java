@@ -1,6 +1,5 @@
 package Services;
 
-import Enums.*;
 import Models.*;
 
 import java.util.*;
@@ -38,13 +37,9 @@ public class BotService {
     public void computeNextPlayerAction(PlayerAction playerAction) {
         StateMachine botState = new StateMachine();
 
-        
-
-        playerAction.action = PlayerActions.FORWARD;
-        playerAction.heading = new Random().nextInt(360);
-
         if (!gameState.getGameObjects().isEmpty()) { // kalo game belum beres
             playerAction = botState.determineAction(gameState, playerAction, bot);
+            System.out.println("Action: " + playerAction.action.name());
         }
 
         this.playerAction = playerAction;

@@ -8,6 +8,7 @@ import Services.BotStates.AttackState;
 import Services.BotStates.DefaultState;
 import Services.BotStates.DodgeState;
 import Services.BotStates.EscapeState;
+import Services.BotStates.StateBase;
 
 public class StateMachine{
     private static StateTypes CURRENTSTATE = StateTypes.DEFAULT_STATE;
@@ -22,25 +23,26 @@ public class StateMachine{
         System.out.println("-------------------------------------------------------------");
         System.out.println("Switch Action: " + CURRENTSTATE.name());
 
+        StateBase.updateState(gameState, self, currentAction);
         switch (CURRENTSTATE) {
             case ATTACK_STATE:
                 System.out.println("Attack");
-                response = AttackState.runState(gameState, currentAction, self);
+                response = AttackState.runState();
                 break;
 
             case ESCAPE_STATE:
                 System.out.println("Escape");
-                response = EscapeState.runState(gameState, currentAction, self);
+                response = EscapeState.runState();
                 break;
         
             case DODGE_STATE:
                 System.out.println("Dodge");
-                response = DodgeState.runState(gameState, currentAction, self);
+                response = DodgeState.runState();
                 break;
                 
             default:
                 System.out.println("Default");
-                response = DefaultState.runState(gameState, currentAction, self);
+                response = DefaultState.runState();
                 break;
         }
         changeState(response.getNewState());

@@ -6,14 +6,12 @@ import java.util.stream.Collectors;
 import Enums.ObjectTypes;
 import Enums.PlayerActions;
 import Enums.StateTypes;
-import Models.GameObject;
-import Models.GameState;
 import Models.PlayerAction;
 import Services.Response;
 import Services.Tools;
 
 public class DefaultState extends StateBase{
-    public static Response runState(GameState gameState, PlayerAction currentAction, GameObject self){
+    public static Response runState(){
         PlayerAction nextAction = currentAction;
         StateTypes nextState = StateTypes.DEFAULT_STATE;
         boolean defaultAction = true;
@@ -23,7 +21,6 @@ public class DefaultState extends StateBase{
                             .collect(Collectors.toList());
 
         if (!playerList.isEmpty()){
-            System.out.println(playerList.size() + " " + Tools.getDistanceBetween(self, playerList.get(1)));
             if (Tools.detectEnemy(playerList.get(1), self, Radarsize)){
                 System.out.println("Enemy within radar");
                 if(Tools.isBig(playerList.get(1), self.size.doubleValue() )){

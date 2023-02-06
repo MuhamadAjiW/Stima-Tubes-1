@@ -5,16 +5,14 @@ import java.util.stream.Collectors;
 
 import Enums.PlayerActions;
 import Enums.StateTypes;
-import Models.GameObject;
-import Models.GameState;
 import Models.PlayerAction;
 import Services.Response;
 import Services.Tools;
 
 public class AttackState extends StateBase {
-    public static Response runState(GameState gameState, PlayerAction currentAction, GameObject self){
+    public static Response runState(){
         PlayerAction nextAction = currentAction;
-        StateTypes nextState = StateTypes.DEFAULT_STATE;
+        StateTypes nextState = StateTypes.ATTACK_STATE;
         boolean defaultAction = true;
 
         var playerList = gameState.getPlayerGameObjects().stream()
