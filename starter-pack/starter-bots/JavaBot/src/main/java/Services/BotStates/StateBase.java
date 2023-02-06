@@ -10,6 +10,7 @@ import Enums.StateTypes;
 import Models.GameObject;
 import Models.GameState;
 import Models.PlayerAction;
+import Models.Position;
 import Services.Response;
 import Services.Tools;
 
@@ -35,6 +36,7 @@ public class StateBase {
                                                         gameState.world.centerPoint.x - self.getPosition().x));
             direction = (direction + 360) % 360;
             retval.assign(direction);
+            dodging = false;
         }
         else{
             dodgeGas(currentHeading);
@@ -47,6 +49,7 @@ public class StateBase {
     private static boolean dodging = false;
     private static Random randomNum;
     private static int temp;
+    private static GameObject cachedGas;
 
     public static void dodgeGas(int currentHeading){
         boolean near = false;
@@ -63,6 +66,7 @@ public class StateBase {
             while(!near && i < gasList.size()){
                 if (self.getSize() + gasList.get(i).getSize() + 20 > Tools.getDistanceBetween(self, gasList.get(i))){
                     System.out.println("Dodging Gas Clouds");
+                    cachedGas = gasList.get(i);
                     
                     randomNum = new Random();
                     temp = randomNum.nextInt(2);
@@ -93,6 +97,33 @@ public class StateBase {
             else{
                 System.out.println("Heading left");
                 newHeading = (Tools.getHeadingBetween(self, gasList.get(i)) - 90) % 360;
+            }
+
+            while(!near && i < gasList.size()){
+                if(!(gasList.get(i).position == cachedGas.position)){
+                    if (self.getSize() + gasList.get(i).getSize() + 20 > Tools.getDistanceBetween(self, gasList.get(i))){
+                        System.out.println("Different Gas found");
+                        cachedGas = gasList.get(i);
+        
+                        if (temp == 0){
+                            System.out.println("Heading right");
+                            newHeading = (Tools.getHeadingBetween(self, gasList.get(i)) + 90) % 360;
+                        }
+                        else{
+                            System.out.println("Heading left");
+                            newHeading = (Tools.getHeadingBetween(self, gasList.get(i)) - 90) % 360;
+                        }
+                        near = true;
+                        cachedHeading = currentHeading;
+                        dodging = true;
+                    }
+                    else{
+                        i++;
+                    }
+                }
+                else{
+                    i++;
+                }
             }
             
             if (newHeading == (cachedHeading + 90)%360 || newHeading == (cachedHeading - 90)%360){
