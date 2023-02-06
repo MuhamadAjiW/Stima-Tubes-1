@@ -10,7 +10,6 @@ import Enums.StateTypes;
 import Models.GameObject;
 import Models.GameState;
 import Models.PlayerAction;
-import Models.Position;
 import Services.Response;
 import Services.Tools;
 
@@ -52,9 +51,13 @@ public class StateBase {
     private static GameObject cachedGas;
 
     public static void dodgeGas(int currentHeading){
-        boolean near = false;
-        int newHeading = currentHeading;
-        int i = 0;
+        boolean near;
+        int newHeading;
+        int i;
+
+        near = false;
+        newHeading = currentHeading;
+        i = 0;
 
         var gasList = gameState.getGameObjects()
                             .stream().filter(item -> item.getGameObjectType() == ObjectTypes.GAS_CLOUD)
@@ -135,8 +138,9 @@ public class StateBase {
     }
 
     public static boolean outsideBound(){
-        boolean out = false;
-        if(Math.sqrt(self.getPosition().x*self.getPosition().x + self.getPosition().y*self.getPosition().y) > gameState.world.radius - self.getSize() - 20){
+        boolean out;
+        out = false;
+        if(Math.sqrt((self.getPosition().x*self.getPosition().x) + (self.getPosition().y*self.getPosition().y)) > gameState.world.radius - self.getSize() - 20){
             out = true;
         }
         return out;
