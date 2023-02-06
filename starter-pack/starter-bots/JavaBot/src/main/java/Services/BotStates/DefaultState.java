@@ -1,37 +1,38 @@
 package Services.BotStates;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import Enums.ObjectTypes;
 import Enums.PlayerActions;
 import Enums.StateTypes;
-import Models.PlayerAction;
+import Models.GameObject;
 import Services.Response;
 import Services.Tools;
 
 public class DefaultState extends StateBase{
     public static Response runState(){
-        PlayerAction nextAction = currentAction;
-        StateTypes nextState = StateTypes.DEFAULT_STATE;
-        boolean defaultAction = true;
-
-        var playerList = gameState.getPlayerGameObjects().stream()
-                            .sorted(Comparator.comparing(item -> Tools.getDistanceBetween(self, item)))
-                            .collect(Collectors.toList());
+        boolean defaultAction;
+        List<GameObject> playerList;
+        
+        defaultAction = true;
+        playerList = gameState.getPlayerGameObjects().stream()
+                    .sorted(Comparator.comparing(item -> Tools.getDistanceBetween(self, item)))
+                    .collect(Collectors.toList());
 
         if (!playerList.isEmpty()){
             if (Tools.detectEnemy(playerList.get(1), self, Radarsize)){
                 System.out.println("Enemy within radar");
                 if(Tools.isBig(playerList.get(1), self.size.doubleValue() )){
                     System.out.println("Enemy is big, size: " + playerList.get(1).size);
-                    nextState = StateTypes.ESCAPE_STATE;
+                    retval.assign(StateTypes.ESCAPE_STATE);
                     defaultAction = false;
                 }
                 else{
                     if(Tools.isSmall(playerList.get(1), self.size.doubleValue() )){
                         System.out.println("Enemy is small, size: " + playerList.get(1).size);
-                        nextState = StateTypes.ATTACK_STATE;
+                        retval.assign(StateTypes.ATTACK_STATE);
                         defaultAction = false;
                     }
                     else{
@@ -53,12 +54,12 @@ public class DefaultState extends StateBase{
 
             // 
 
-            nextAction.action = PlayerActions.FORWARD;
-            nextAction.heading = Tools.getHeadingBetween(foodList.get(0), self);
-            nextState = StateTypes.DEFAULT_STATE;
+            retval.assign(PlayerActions.FORWARD);
+            retval.assign(Tools.getHeadingBetween(foodList.get(0), self));
+            retval.assign(StateTypes.DEFAULT_STATE);
         }
 
-        retval.assign(nextState, nextAction);
+        pathfind(retval.getNewAction().heading);
         return retval;
     }
 }

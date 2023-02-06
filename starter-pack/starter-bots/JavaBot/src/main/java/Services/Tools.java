@@ -17,7 +17,7 @@ public class Tools {
 
     public static boolean detectEnemy(GameObject otherObject, GameObject bot, Double size){
         boolean detected = false;
-        if(size > getDistanceBetween(otherObject, bot)){
+        if(size + bot.getSize() + otherObject.getSize() > getDistanceBetween(otherObject, bot)){
             detected = true;
         }
         return detected;
@@ -39,8 +39,7 @@ public class Tools {
         return small;
     }
 
-
-    private static int toDegrees(double v) {
+    public static int toDegrees(double v) {
         return (int) (v * (180 / Math.PI));
     }
 }

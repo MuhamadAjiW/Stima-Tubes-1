@@ -21,6 +21,7 @@ public class StateMachine{
 
     public PlayerAction determineAction(GameState gameState, PlayerAction currentAction, GameObject self){
         System.out.println("-------------------------------------------------------------");
+        System.out.println("Current Tick: " + gameState.world.currentTick);
         System.out.println("Switch Action: " + CURRENTSTATE.name());
 
         StateBase.updateState(gameState, self, currentAction);
