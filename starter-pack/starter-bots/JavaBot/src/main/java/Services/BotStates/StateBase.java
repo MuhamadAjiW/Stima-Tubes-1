@@ -43,9 +43,10 @@ public class StateBase {
 
 
     //Generic Subfunctions
-    private static int tickLimit = 0;
     private static int cachedHeading;
     private static boolean dodging = false;
+    private static Random randomNum;
+    private static int temp;
 
     public static void dodgeGas(int currentHeading){
         boolean near = false;
@@ -58,13 +59,13 @@ public class StateBase {
                                     .comparing(item -> Tools.getDistanceBetween(self, item)))
                             .collect(Collectors.toList());
 
-        if (gameState.world.currentTick < tickLimit){
+        if (!dodging){
             while(!near && i < gasList.size()){
                 if (self.getSize() + gasList.get(i).getSize() + 20 > Tools.getDistanceBetween(self, gasList.get(i))){
                     System.out.println("Dodging Gas Clouds");
                     
-                    Random randomNum = new Random();
-                    int temp = randomNum.nextInt(2);
+                    randomNum = new Random();
+                    temp = randomNum.nextInt(2);
     
                     if (temp == 0){
                         System.out.println("Heading right");
@@ -75,8 +76,7 @@ public class StateBase {
                         newHeading = (Tools.getHeadingBetween(self, gasList.get(i)) - 90) % 360;
                     }
                     near = true;
-                    tickLimit = gameState.world.currentTick + gasList.get(i).getSize()/3 + self.getSize()/10;
-                    cachedHeading = newHeading;
+                    cachedHeading = currentHeading;
                     dodging = true;
                 }
                 else{
@@ -85,9 +85,19 @@ public class StateBase {
             }
         }
         else if (dodging){
-            System.out.println("Dodging Gas Clouds as Before, Current Tick: " + gameState.world.currentTick + ", target tick: " + tickLimit);
-            newHeading = cachedHeading;
-            dodging = false;
+            System.out.println("Dodging Gas Clouds as Before");
+            if (temp == 0){
+                System.out.println("Heading right");
+                newHeading = (Tools.getHeadingBetween(self, gasList.get(i)) + 90) % 360;
+            }
+            else{
+                System.out.println("Heading left");
+                newHeading = (Tools.getHeadingBetween(self, gasList.get(i)) - 90) % 360;
+            }
+            
+            if (newHeading == (cachedHeading + 90)%360 || newHeading == (cachedHeading - 90)%360){
+                dodging = false;
+            }
         }
         
         retval.assign(newHeading);
