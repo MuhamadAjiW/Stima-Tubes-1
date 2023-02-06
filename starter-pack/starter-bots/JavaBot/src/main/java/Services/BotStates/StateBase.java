@@ -75,7 +75,7 @@ public class StateBase {
                         newHeading = (Tools.getHeadingBetween(self, gasList.get(i)) - 90) % 360;
                     }
                     near = true;
-                    tickLimit = gameState.world.currentTick + gasList.get(i).getSize()/3;
+                    tickLimit = gameState.world.currentTick + gasList.get(i).getSize()/3 + self.getSize()/10;
                     cachedHeading = newHeading;
                     dodging = true;
                 }

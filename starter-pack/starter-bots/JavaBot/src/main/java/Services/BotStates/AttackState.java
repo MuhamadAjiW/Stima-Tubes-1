@@ -25,9 +25,16 @@ public class AttackState extends StateBase {
             enemyDirection = Tools.getHeadingBetween(playerList.get(1), self);
 
             if (!Tools.detectEnemy(playerList.get(1), self, Radarsize)){
-                System.out.println("Enemy out of sight");
-                retval.assign(StateTypes.DEFAULT_STATE);
-                defaultAction = false;
+                if (self.TorpedoSalvoCount > 0 && self.size > 100){
+                    fireTorpedoes(enemyDirection);
+                    retval.assign(StateTypes.ATTACK_STATE);
+                    defaultAction = false;
+                }
+                else{
+                    System.out.println("Enemy out of sight");
+                    retval.assign(StateTypes.DEFAULT_STATE);
+                    defaultAction = false;
+                }
             }
     
             else if(Tools.isBig(playerList.get(1), self.size.doubleValue() )){

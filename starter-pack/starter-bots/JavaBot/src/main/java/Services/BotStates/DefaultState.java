@@ -22,6 +22,9 @@ public class DefaultState extends StateBase{
                     .collect(Collectors.toList());
 
         if (!playerList.isEmpty()){
+
+            
+
             if (Tools.detectEnemy(playerList.get(1), self, Radarsize)){
                 System.out.println("Enemy within radar");
                 if(Tools.isBig(playerList.get(1), self.size.doubleValue() )){
@@ -41,6 +44,11 @@ public class DefaultState extends StateBase{
                         defaultAction = true;
                     }
                 }
+            }
+            else if (self.TorpedoSalvoCount > 0 && self.size > 100){
+                System.out.println("Ship is big, firing missles nonetheless");
+                retval.assign(StateTypes.ATTACK_STATE);
+                defaultAction = false;
             }
         }
 
