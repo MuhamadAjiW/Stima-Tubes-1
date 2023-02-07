@@ -6,7 +6,12 @@ import Models.PlayerAction;
 
 public class Response {
     private StateTypes newState;
-    private PlayerAction newAction = new PlayerAction();
+    private PlayerAction newAction;
+
+    public Response(){
+        this.newState = StateTypes.DEFAULT_STATE;
+        newAction = new PlayerAction();
+    }
 
     public void assign(StateTypes state, PlayerAction action){
         this.newState = state;

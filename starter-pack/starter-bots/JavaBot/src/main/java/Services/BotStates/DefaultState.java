@@ -15,6 +15,7 @@ public class DefaultState extends StateBase{
     public static Response runState(){
         boolean defaultAction;
         List<GameObject> playerList;
+        List<GameObject> foodList;
         
         defaultAction = true;
         playerList = gameState.getPlayerGameObjects().stream()
@@ -54,7 +55,7 @@ public class DefaultState extends StateBase{
 
         if (defaultAction){
             System.out.println("Hoarding food");
-            var foodList = gameState.getGameObjects()
+            foodList = gameState.getGameObjects()
                     .stream().filter(item -> item.getGameObjectType() == ObjectTypes.FOOD)
                     .sorted(Comparator
                             .comparing(item -> Tools.getDistanceBetween(self, item)))

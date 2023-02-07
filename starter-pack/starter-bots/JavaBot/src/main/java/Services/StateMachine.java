@@ -24,8 +24,12 @@ public class StateMachine{
         System.out.println("Current Tick: " + gameState.world.currentTick);
         System.out.println("Player Remaining: " + gameState.getPlayerGameObjects().size());
         System.out.println("Size: " + self.getSize());
-        System.out.println("Switch Action: " + CURRENTSTATE.name());
+        
         StateBase.updateState(gameState, self, currentAction);
+        response = DodgeState.detectTorpedoes();
+        changeState(response.getNewState());
+
+        System.out.println("Switch Action: " + CURRENTSTATE.name());
         switch (CURRENTSTATE) {
             case ATTACK_STATE:
                 System.out.println("Attack");

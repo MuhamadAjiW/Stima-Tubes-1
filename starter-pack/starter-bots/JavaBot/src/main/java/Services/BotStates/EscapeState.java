@@ -54,17 +54,21 @@ public class EscapeState extends StateBase {
     //Sub Actions
     public static void defaultAction(int enemyDirection){
         System.out.println("Escaping enemy");
-        
-        var foodList = gameState.getGameObjects()
+        List<GameObject> foodList;
+        boolean notfoundFood;
+        int i;
+
+        foodList = gameState.getGameObjects()
                     .stream().filter(item -> item.getGameObjectType() == ObjectTypes.FOOD)
                     .sorted(Comparator
                             .comparing(item -> Tools.getDistanceBetween(self, item)))
                     .collect(Collectors.toList());
 
-        boolean notfoundFood = true;
-        int i = 0;
+        notfoundFood = true;
+        i = 0;
         while (notfoundFood && i < 10){
-            int closestFoodDirection = Tools.getHeadingBetween(foodList.get(i), self);
+            int closestFoodDirection;
+            closestFoodDirection = Tools.getHeadingBetween(foodList.get(i), self);
             if(closestFoodDirection > (enemyDirection + 160)%360 && closestFoodDirection < (enemyDirection + 200)%360){
                 System.out.println("Running while fetching food");
                 System.out.println("Enemy direction is: " + enemyDirection + ", food direction is: " + closestFoodDirection);
