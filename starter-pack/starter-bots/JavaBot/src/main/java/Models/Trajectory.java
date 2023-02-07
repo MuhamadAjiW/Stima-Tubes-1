@@ -11,7 +11,7 @@ public class Trajectory {
         tetha = object.currentHeading;
         vel = object.getSpeed();
         init.x = object.getPosition().x;
-        init.y = object.getPosition().x;
+        init.y = object.getPosition().y;
         gradient = Math.round(Math.sin(Math.toRadians(tetha)) * vel);
         constant = init.y - (gradient*init.x);
     }
@@ -26,8 +26,8 @@ public class Trajectory {
 
     public Position interpolate(int time){
         Position retval = new Position();
-        retval.x = (int) Math.round(Math.cos(Math.toRadians(tetha))*vel) * time + init.x;
-        retval.y = (int) Math.round(Math.sin(Math.toRadians(tetha))*vel) * time + init.y;
+        retval.x = (int) (Math.round(Math.cos(Math.toRadians(tetha))*vel)*time + init.x);
+        retval.y = (int) (Math.round(Math.sin(Math.toRadians(tetha))*vel)*time + init.y);
         return retval;
     }
 }

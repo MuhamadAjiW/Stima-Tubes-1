@@ -57,9 +57,9 @@ public class DodgeHandler {
                     cachedDst = targetDst;
                     targetDst = Tools.getDistanceBetween(line1.interpolate(retval), line2.interpolate(retval));
         
-                } while (cachedDst > targetDst && (targetDst < 1 && targetDst > -1));
+                } while (cachedDst > targetDst && !(targetDst < 1 && targetDst > -1));
             }
-            if (retval == 0){
+            if (retval == 1){
                 retval = -9999;
             }
         }
@@ -104,6 +104,7 @@ public class DodgeHandler {
             System.out.println("Closest interpolated distance to torpedo: " + closestDistance);
             if(closestDistance != -9999){
                 if(closestDistance < bot.size + torpedoList.get(i).size + 5){
+                    System.out.println("Hit!");
                     hit = true;
                 }
                 else{
