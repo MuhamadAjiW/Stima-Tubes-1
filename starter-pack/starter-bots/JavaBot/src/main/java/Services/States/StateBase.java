@@ -32,19 +32,19 @@ public class StateBase {
 
 
     //Generic Actions
+    private static int cachedHeading;
+    private static boolean dodging = false;
+    private static int temp;
+    private static GameObject cachedGas;
+
     public static void pathfind(int currentHeading){
         if (NavigationHandler.outsideBound(gameState, self)){
-            System.out.println("Dodging Edge of map");
-            int direction;
-
-
-            direction = Tools.getHeadingBetween(self.getPosition(), gameState.world.getCenterPoint());
-            System.out.println("Heading: " + self.currentHeading + ", should be: " + direction);
-            direction = (direction + 180) % 360;
-            retval.assign(direction);
-            dodging = false;
+            dodgeEdge();
         }
         else{
+            if (RadarHandler.detectThreat(gameState, self, Radarsize - 70)){
+                dodgeEnemy();
+            }
             dodgeGas(currentHeading);
         }
     }
@@ -58,18 +58,32 @@ public class StateBase {
 
 
     //Generic Subfunctions
-    private static int cachedHeading;
-    private static boolean dodging = false;
-    private static int temp;
-    private static GameObject cachedGas;
+    public static void dodgeEnemy(){
+        System.out.println("Bigger enemy getting too close, prioritizing escape");
+
+        retval.assign(StateTypes.ESCAPE_STATE);
+        dodging = false;
+    }
+
+    public static void dodgeEdge(){
+        System.out.println("Dodging Edge of map");
+
+        int direction;
+        direction = Tools.getHeadingBetween(self.getPosition(), gameState.world.getCenterPoint());
+        System.out.println("Heading: " + self.currentHeading + ", should be: " + direction);
+        direction = (direction + 180) % 360;
+
+        cachedHeading = direction;
+        retval.assign(direction);
+        dodging = false;
+    }
 
     public static void dodgeGas(int currentHeading){
         boolean near;
         int newHeading;
         int i;
         List<GameObject> gasList;
-        List<GameObject> playerList;
-
+        
         near = false;
         newHeading = currentHeading;
         i = 0;
@@ -80,20 +94,9 @@ public class StateBase {
                                     .comparing(item -> Tools.getDistanceBetween(self, item)))
                             .collect(Collectors.toList());
 
-        
-        playerList = gameState.getPlayerGameObjects().stream()
-                            .sorted(Comparator.comparing(item -> Tools.getDistanceBetween(self, item)))
-                            .collect(Collectors.toList());
 
-        if (!dodging){
-            if (RadarHandler.detectEnemy(playerList.get(1), self, Radarsize - 70)){
-                if(RadarHandler.isBig(playerList.get(1), self.size.doubleValue() )){
-                    System.out.println("Bigger enemy getting too close, prioritizing escape, size: " + playerList.get(1).size);
-                    retval.assign(StateTypes.ESCAPE_STATE);
-                    dodging = false;
-                }
-            }
-            else{
+        if (!gasList.isEmpty()){
+            if (!dodging){
                 while(!near && i < gasList.size()){
                     if (self.getSize() + gasList.get(i).getSize() + 20 > Tools.getDistanceBetween(self, gasList.get(i))){
                         System.out.println("Dodging Gas Clouds");
@@ -101,13 +104,13 @@ public class StateBase {
                         
                         temp = NavigationHandler.decideTurnDir(currentHeading, self, gameState);
         
-                        if (temp == 0){
+                        if (temp == 1){
                             System.out.println("Heading right");
                             newHeading = (Tools.getHeadingBetween(self, gasList.get(i)) + 90) % 360;
                         }
                         else{
                             System.out.println("Heading left");
-                            newHeading = (Tools.getHeadingBetween(self, gasList.get(i)) - 90) % 360;
+                            newHeading = (Tools.getHeadingBetween(self, gasList.get(i)) + 270) % 360;
                         }
                         near = true;
                         cachedHeading = currentHeading;
@@ -118,39 +121,31 @@ public class StateBase {
                     }
                 }
             }
-        }
-        else if (dodging){
-            if (RadarHandler.detectEnemy(playerList.get(1), self, Radarsize - 70)){
-                if(RadarHandler.isBig(playerList.get(1), self.size.doubleValue() )){
-                    System.out.println("Bigger enemy getting too close, prioritizing escape" + playerList.get(1).size);
-                    retval.assign(StateTypes.ESCAPE_STATE);
-                    dodging = false;
-                }
-            }
-            else{
+            else if (dodging){
                 System.out.println("Dodging Gas Clouds as Before");
-                if (temp == 0){
+    
+                if (temp == 1){
                     System.out.println("Heading right");
                     newHeading = (Tools.getHeadingBetween(self, gasList.get(i)) + 90) % 360;
                 }
                 else{
                     System.out.println("Heading left");
-                    newHeading = (Tools.getHeadingBetween(self, gasList.get(i)) - 90) % 360;
+                    newHeading = (Tools.getHeadingBetween(self, gasList.get(i)) + 270) % 360;
                 }
-
+    
                 while(!near && i < gasList.size()){
                     if(!(gasList.get(i).position == cachedGas.position)){
                         if (self.getSize() + gasList.get(i).getSize() + 20 > Tools.getDistanceBetween(self, gasList.get(i))){
                             System.out.println("Different Gas found");
                             cachedGas = gasList.get(i);
-            
-                            if (temp == 0){
+    
+                            if (temp == 1){
                                 System.out.println("Heading right");
                                 newHeading = (Tools.getHeadingBetween(self, gasList.get(i)) + 90) % 360;
                             }
                             else{
                                 System.out.println("Heading left");
-                                newHeading = (Tools.getHeadingBetween(self, gasList.get(i)) - 90) % 360;
+                                newHeading = (Tools.getHeadingBetween(self, gasList.get(i)) + 270) % 360;
                             }
                             near = true;
                             cachedHeading = currentHeading;
@@ -164,9 +159,17 @@ public class StateBase {
                         i++;
                     }
                 }
-            }   
-            if (newHeading == (cachedHeading + 90)%360 || newHeading == (cachedHeading - 90)%360){
-                dodging = false;
+    
+                if (temp == 1){
+                    if (Tools.aroundDegrees(currentHeading, (cachedHeading + 270)%360, 5)){
+                        dodging = false;
+                    }
+                }
+                else{
+                    if (Tools.aroundDegrees(currentHeading, (cachedHeading + 90)%360, 5)){
+                        dodging = false;
+                    }
+                }
             }
         }
         retval.assign(newHeading);

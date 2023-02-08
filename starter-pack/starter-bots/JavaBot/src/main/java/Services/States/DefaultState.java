@@ -10,13 +10,13 @@ import Enums.StateTypes;
 import Models.GameObject;
 import Services.Common.Response;
 import Services.Common.Tools;
+import Services.Handlers.NavigationHandler;
 import Services.Handlers.RadarHandler;
 
 public class DefaultState extends StateBase{
     public static Response runState(){
         boolean defaultAction;
         List<GameObject> playerList;
-        List<GameObject> foodList;
         
         defaultAction = true;
         playerList = gameState.getPlayerGameObjects().stream()
@@ -48,28 +48,38 @@ public class DefaultState extends StateBase{
                 }
             }
             else if (self.TorpedoSalvoCount > 0 && self.size > 100){
-                System.out.println("Ship is big, firing missles nonetheless");
-                retval.assign(StateTypes.ATTACK_STATE);
-                defaultAction = false;
+                if(!NavigationHandler.outsideBound(gameState, self)){
+                    System.out.println("Ship is big, firing missles nonetheless");
+                    retval.assign(StateTypes.ATTACK_STATE);
+                    defaultAction = false;
+                }
             }
         }
 
         if (defaultAction){
-            System.out.println("Hoarding food");
-            foodList = gameState.getGameObjects()
-                    .stream().filter(item -> item.getGameObjectType() == ObjectTypes.FOOD)
-                    .sorted(Comparator
-                            .comparing(item -> Tools.getDistanceBetween(self, item)))
-                    .collect(Collectors.toList());
-
-            // 
-
-            retval.assign(PlayerActions.FORWARD);
-            retval.assign(Tools.getHeadingBetween(foodList.get(0), self));
-            retval.assign(StateTypes.DEFAULT_STATE);
+            defaultAction();
         }
 
         pathfind(retval.getNewAction().heading);
         return retval;
+    }
+
+    public static void defaultAction(){
+        System.out.println("Hoarding food");
+
+        List<GameObject> foodList;
+        foodList = gameState.getGameObjects()
+                .stream().filter(item -> item.getGameObjectType() == ObjectTypes.FOOD)
+                .sorted(Comparator
+                        .comparing(item -> Tools.getDistanceBetween(self, item)))
+                .collect(Collectors.toList());
+
+        // 
+
+        retval.assign(PlayerActions.FORWARD);
+        if(!foodList.isEmpty()){
+            retval.assign(Tools.getHeadingBetween(foodList.get(0), self));
+        }
+        retval.assign(StateTypes.DEFAULT_STATE);
     }
 }

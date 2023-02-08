@@ -37,4 +37,16 @@ public class Tools {
     public static int toDegrees(double v) {
         return (int) (v * (180 / Math.PI));
     }
+
+    public static boolean aroundDegrees(int currentDegree, int targetDegree, int range){
+        if (targetDegree + range > 360){
+            return (currentDegree < targetDegree + range - 360 && currentDegree > targetDegree - range);
+        }
+        else if (targetDegree - range < 0){
+            return (currentDegree < targetDegree + range && currentDegree > targetDegree - range + 360);
+        }
+        else{
+            return (currentDegree < targetDegree + range && currentDegree > targetDegree - range);
+        }
+    }  
 }

@@ -1,6 +1,11 @@
 package Services.Handlers;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import Models.GameObject;
+import Models.GameState;
 import Services.Common.Tools;
 
 public class RadarHandler {
@@ -9,6 +14,23 @@ public class RadarHandler {
         detected = false;
         if(size + bot.getSize() + otherObject.getSize() > Tools.getDistanceBetween(otherObject, bot)){
             detected = true;
+        }
+        return detected;
+    }
+
+    public static boolean detectThreat(GameState gameState, GameObject bot, Double size){
+        boolean detected;
+        List<GameObject> playerList;
+
+        playerList = gameState.getPlayerGameObjects().stream()
+                    .sorted(Comparator.comparing(item -> Tools.getDistanceBetween(bot, item)))
+                    .collect(Collectors.toList());
+
+        detected = false;
+        if(size + bot.getSize() + playerList.get(1).getSize() > Tools.getDistanceBetween(playerList.get(1), bot)){
+            if(isBig(playerList.get(1), bot.size.doubleValue() )){
+                detected = true;
+            }
         }
         return detected;
     }

@@ -70,7 +70,7 @@ public class EscapeState extends StateBase {
         while (notfoundFood && i < 10){
             int closestFoodDirection;
             closestFoodDirection = Tools.getHeadingBetween(foodList.get(i), self);
-            if(closestFoodDirection > (enemyDirection + 160)%360 && closestFoodDirection < (enemyDirection + 200)%360){
+            if(Tools.aroundDegrees(closestFoodDirection, (enemyDirection + 180)%360, 20)){
                 System.out.println("Running while fetching food");
                 System.out.println("Enemy direction is: " + enemyDirection + ", food direction is: " + closestFoodDirection);
                 notfoundFood = false;
