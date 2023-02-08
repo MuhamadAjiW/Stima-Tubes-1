@@ -4,11 +4,12 @@ import Enums.*;
 import Models.GameObject;
 import Models.GameState;
 import Models.PlayerAction;
-import Services.BotStates.AttackState;
-import Services.BotStates.DefaultState;
-import Services.BotStates.DodgeState;
-import Services.BotStates.EscapeState;
-import Services.BotStates.StateBase;
+import Services.Common.Response;
+import Services.States.AttackState;
+import Services.States.DefaultState;
+import Services.States.DodgeState;
+import Services.States.EscapeState;
+import Services.States.StateBase;
 
 public class StateMachine{
     private static StateTypes CURRENTSTATE = StateTypes.DEFAULT_STATE;
@@ -21,9 +22,15 @@ public class StateMachine{
 
     public PlayerAction determineAction(GameState gameState, PlayerAction currentAction, GameObject self){
         System.out.println("-------------------------------------------------------------");
-        System.out.println("Switch Action: " + CURRENTSTATE.name());
-
+        System.out.println("Current Tick: " + gameState.world.currentTick);
+        System.out.println("Player Remaining: " + gameState.getPlayerGameObjects().size());
+        System.out.println("Size: " + self.getSize());
+        
         StateBase.updateState(gameState, self, currentAction);
+        response = DodgeState.detectTorpedoes();
+        changeState(response.getNewState());
+
+        System.out.println("Switch Action: " + CURRENTSTATE.name());
         switch (CURRENTSTATE) {
             case ATTACK_STATE:
                 System.out.println("Attack");
