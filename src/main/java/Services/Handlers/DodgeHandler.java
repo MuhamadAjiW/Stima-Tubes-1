@@ -8,6 +8,8 @@ import Services.Common.Tools;
 import Services.Common.Trajectory;
 
 public class DodgeHandler {
+    public static boolean critical = false;
+
     public static Position intercept(Trajectory line1,Trajectory line2){
         Position retval = new Position();
 
@@ -20,8 +22,8 @@ public class DodgeHandler {
         //y = m2x + c2
         //y - m1x = c1
         //y - m2x = c2
-        //1 - m1 (y) = c1
-        //1 - m2 (x) = c2
+        //1 - m1 | (y) = c1
+        //1 - m2 | (x) = c2
         //1/det
         //-m2 m1
         //-1   1
@@ -96,6 +98,7 @@ public class DodgeHandler {
         int i;
 
         hit = false;
+        critical = false;
         i = 0;
         botTrajectory = new Trajectory(bot);
         while(!hit && i < torpedoList.size()){
@@ -104,6 +107,11 @@ public class DodgeHandler {
             System.out.println("Closest interpolated distance to torpedo: " + closestDistance);
             if(closestDistance != -9999){
                 if(closestDistance < bot.size + torpedoList.get(i).size + 5){
+                    
+                    if (timeToIntercept(botTrajectory, torpedoTrajectory) < (bot.size+torpedoList.get(i).size)/torpedoTrajectory.vel + 5){
+                        critical = true;
+                    }
+
                     System.out.println("Hit!");
                     hit = true;
                 }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import Enums.ObjectTypes;
+import Enums.PlayerActions;
 import Enums.StateTypes;
 import Models.GameObject;
 import Services.Common.Response;
@@ -12,6 +13,8 @@ import Services.Common.Tools;
 import Services.Handlers.DodgeHandler;
 
 public class DodgeState extends StateBase {
+    GameObject markedTorpedo;
+
     public static Response runState(){
         boolean defaultAction;
         defaultAction = true;
@@ -20,6 +23,11 @@ public class DodgeState extends StateBase {
         if(defaultAction){
             //TODO: IMPLEMENTASI DODGE STATE
             System.out.println("Dodging torpedo");
+            System.out.println("Shield count: " + self.ShieldCount);
+            if(DodgeHandler.critical && self.ShieldCount > 0){
+                retval.assign(PlayerActions.ACTIVATESHIELD);
+                System.out.println("Shields deployed");
+            }
             retval.assign(StateTypes.DEFAULT_STATE);
         }
         return retval;
