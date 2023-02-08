@@ -53,8 +53,6 @@ public class NavigationHandler {
     }
 
     
-
-    //
     public static int dodgeEdge(GameObject self, GameState gameState){
         System.out.println("Dodging Edge of map");
 

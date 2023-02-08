@@ -29,6 +29,8 @@ public class Trajectory {
         init.x = 0;
         init.y = 0;
         vel = 0;
+        vx = 0;
+        vy = 0;
     }
 
     public Position interpolate(int time){
