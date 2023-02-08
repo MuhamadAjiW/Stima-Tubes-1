@@ -1,4 +1,4 @@
-package Services.BotStates;
+package Services.States;
 
 import java.util.Comparator;
 import java.util.List;
@@ -10,9 +10,10 @@ import Enums.StateTypes;
 import Models.GameObject;
 import Models.GameState;
 import Models.PlayerAction;
-import Services.Response;
-import Services.Tools;
-import Services.GenericClass.DirectionHandler;
+import Services.Common.Response;
+import Services.Common.Tools;
+import Services.Handlers.NavigationHandler;
+import Services.Handlers.RadarHandler;
 
 public class StateBase {
     public static GameState gameState;
@@ -32,7 +33,7 @@ public class StateBase {
 
     //Generic Actions
     public static void pathfind(int currentHeading){
-        if (DirectionHandler.outsideBound(gameState, self)){
+        if (NavigationHandler.outsideBound(gameState, self)){
             System.out.println("Dodging Edge of map");
             int direction;
 
@@ -85,8 +86,8 @@ public class StateBase {
                             .collect(Collectors.toList());
 
         if (!dodging){
-            if (Tools.detectEnemy(playerList.get(1), self, Radarsize - 70)){
-                if(Tools.isBig(playerList.get(1), self.size.doubleValue() )){
+            if (RadarHandler.detectEnemy(playerList.get(1), self, Radarsize - 70)){
+                if(RadarHandler.isBig(playerList.get(1), self.size.doubleValue() )){
                     System.out.println("Bigger enemy getting too close, prioritizing escape, size: " + playerList.get(1).size);
                     retval.assign(StateTypes.ESCAPE_STATE);
                     dodging = false;
@@ -98,7 +99,7 @@ public class StateBase {
                         System.out.println("Dodging Gas Clouds");
                         cachedGas = gasList.get(i);
                         
-                        temp = DirectionHandler.decideTurnDir(currentHeading, self, gameState);
+                        temp = NavigationHandler.decideTurnDir(currentHeading, self, gameState);
         
                         if (temp == 0){
                             System.out.println("Heading right");
@@ -119,8 +120,8 @@ public class StateBase {
             }
         }
         else if (dodging){
-            if (Tools.detectEnemy(playerList.get(1), self, Radarsize - 70)){
-                if(Tools.isBig(playerList.get(1), self.size.doubleValue() )){
+            if (RadarHandler.detectEnemy(playerList.get(1), self, Radarsize - 70)){
+                if(RadarHandler.isBig(playerList.get(1), self.size.doubleValue() )){
                     System.out.println("Bigger enemy getting too close, prioritizing escape" + playerList.get(1).size);
                     retval.assign(StateTypes.ESCAPE_STATE);
                     dodging = false;

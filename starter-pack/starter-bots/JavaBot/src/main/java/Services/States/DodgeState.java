@@ -1,4 +1,4 @@
-package Services.BotStates;
+package Services.States;
 
 import java.util.Comparator;
 import java.util.List;
@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 import Enums.ObjectTypes;
 import Enums.StateTypes;
 import Models.GameObject;
-import Services.Response;
-import Services.Tools;
-import Services.GenericClass.DodgeHandler;
+import Services.Common.Response;
+import Services.Common.Tools;
+import Services.Handlers.DodgeHandler;
 
 public class DodgeState extends StateBase {
     public static Response runState(){

@@ -1,4 +1,4 @@
-package Services;
+package Services.Common;
 
 import Models.GameObject;
 import Models.Position;
@@ -32,33 +32,6 @@ public class Tools {
         direction = toDegrees(Math.atan2(pos1.y - pos2.y,
                 pos1.x - pos2.x));
         return (direction + 360) % 360;
-    }
-
-    public static boolean detectEnemy(GameObject otherObject, GameObject bot, Double size){
-        boolean detected;
-        detected = false;
-        if(size + bot.getSize() + otherObject.getSize() > getDistanceBetween(otherObject, bot)){
-            detected = true;
-        }
-        return detected;
-    }
-
-    public static boolean isSmall(GameObject otherObject, Double threshold){
-        boolean small;
-        small = false;
-        if(otherObject.size < threshold){
-            small = true;
-        }
-        return small;
-    }
-
-    public static boolean isBig(GameObject otherObject, Double threshold){
-        boolean big;
-        big = false;
-        if(otherObject.size > threshold){
-            big = true;
-        }
-        return big;
     }
 
     public static int toDegrees(double v) {

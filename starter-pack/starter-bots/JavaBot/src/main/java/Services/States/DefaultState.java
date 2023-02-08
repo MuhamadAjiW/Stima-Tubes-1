@@ -1,4 +1,4 @@
-package Services.BotStates;
+package Services.States;
 
 import java.util.Comparator;
 import java.util.List;
@@ -8,8 +8,9 @@ import Enums.ObjectTypes;
 import Enums.PlayerActions;
 import Enums.StateTypes;
 import Models.GameObject;
-import Services.Response;
-import Services.Tools;
+import Services.Common.Response;
+import Services.Common.Tools;
+import Services.Handlers.RadarHandler;
 
 public class DefaultState extends StateBase{
     public static Response runState(){
@@ -26,15 +27,15 @@ public class DefaultState extends StateBase{
 
             
 
-            if (Tools.detectEnemy(playerList.get(1), self, Radarsize)){
+            if (RadarHandler.detectEnemy(playerList.get(1), self, Radarsize)){
                 System.out.println("Enemy within radar");
-                if(Tools.isBig(playerList.get(1), self.size.doubleValue() )){
+                if(RadarHandler.isBig(playerList.get(1), self.size.doubleValue() )){
                     System.out.println("Enemy is big, size: " + playerList.get(1).size);
                     retval.assign(StateTypes.ESCAPE_STATE);
                     defaultAction = false;
                 }
                 else{
-                    if(Tools.isSmall(playerList.get(1), self.size.doubleValue() )){
+                    if(RadarHandler.isSmall(playerList.get(1), self.size.doubleValue() )){
                         System.out.println("Enemy is small, size: " + playerList.get(1).size);
                         retval.assign(StateTypes.ATTACK_STATE);
                         defaultAction = false;

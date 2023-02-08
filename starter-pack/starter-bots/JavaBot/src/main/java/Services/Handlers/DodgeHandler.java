@@ -1,11 +1,11 @@
-package Services.GenericClass;
+package Services.Handlers;
 
 import java.util.List;
 
 import Models.GameObject;
 import Models.Position;
-import Models.Trajectory;
-import Services.Tools;
+import Services.Common.Tools;
+import Services.Common.Trajectory;
 
 public class DodgeHandler {
     public static Position intercept(Trajectory line1,Trajectory line2){

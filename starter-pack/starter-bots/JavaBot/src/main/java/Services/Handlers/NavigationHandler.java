@@ -1,10 +1,10 @@
-package Services.GenericClass;
+package Services.Handlers;
 
 import Models.GameObject;
 import Models.GameState;
-import Services.Tools;
+import Services.Common.Tools;
 
-public class DirectionHandler {
+public class NavigationHandler {
     public static boolean outsideBound(GameState gameState, GameObject obj){
         boolean out;
         double dst;

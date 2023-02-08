@@ -4,11 +4,12 @@ import Enums.*;
 import Models.GameObject;
 import Models.GameState;
 import Models.PlayerAction;
-import Services.BotStates.AttackState;
-import Services.BotStates.DefaultState;
-import Services.BotStates.DodgeState;
-import Services.BotStates.EscapeState;
-import Services.BotStates.StateBase;
+import Services.Common.Response;
+import Services.States.AttackState;
+import Services.States.DefaultState;
+import Services.States.DodgeState;
+import Services.States.EscapeState;
+import Services.States.StateBase;
 
 public class StateMachine{
     private static StateTypes CURRENTSTATE = StateTypes.DEFAULT_STATE;

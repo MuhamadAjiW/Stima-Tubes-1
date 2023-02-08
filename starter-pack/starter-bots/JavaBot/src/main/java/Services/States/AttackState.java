@@ -1,4 +1,4 @@
-package Services.BotStates;
+package Services.States;
 
 import java.util.Comparator;
 import java.util.List;
@@ -7,8 +7,9 @@ import java.util.stream.Collectors;
 import Enums.PlayerActions;
 import Enums.StateTypes;
 import Models.GameObject;
-import Services.Response;
-import Services.Tools;
+import Services.Common.Response;
+import Services.Common.Tools;
+import Services.Handlers.RadarHandler;
 
 public class AttackState extends StateBase {
     public static Response runState(){
@@ -24,7 +25,7 @@ public class AttackState extends StateBase {
         if(!playerList.isEmpty()){
             enemyDirection = Tools.getHeadingBetween(playerList.get(1), self);
 
-            if (!Tools.detectEnemy(playerList.get(1), self, Radarsize)){
+            if (!RadarHandler.detectEnemy(playerList.get(1), self, Radarsize)){
                 if (self.TorpedoSalvoCount > 0 && self.size > 100){
                     fireTorpedoes(enemyDirection);
                     retval.assign(StateTypes.ATTACK_STATE);
@@ -37,7 +38,7 @@ public class AttackState extends StateBase {
                 }
             }
     
-            else if(Tools.isBig(playerList.get(1), self.size.doubleValue() )){
+            else if(RadarHandler.isBig(playerList.get(1), self.size.doubleValue() )){
                 System.out.println("Bigger enemy detected");
                 retval.assign(StateTypes.ESCAPE_STATE);
                 defaultAction = false;

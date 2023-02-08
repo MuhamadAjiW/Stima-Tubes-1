@@ -1,4 +1,4 @@
-package Services.BotStates;
+package Services.States;
 
 import java.util.Comparator;
 import java.util.List;
@@ -8,8 +8,9 @@ import Enums.ObjectTypes;
 import Enums.PlayerActions;
 import Enums.StateTypes;
 import Models.GameObject;
-import Services.Response;
-import Services.Tools;
+import Services.Common.Response;
+import Services.Common.Tools;
+import Services.Handlers.RadarHandler;
 
 public class EscapeState extends StateBase {
     public static Response runState(){
@@ -25,12 +26,12 @@ public class EscapeState extends StateBase {
 
         if (!playerList.isEmpty()){
             enemyDirection = Tools.getHeadingBetween(playerList.get(1), self);
-            if (!Tools.detectEnemy(playerList.get(1), self, Radarsize)){
+            if (!RadarHandler.detectEnemy(playerList.get(1), self, Radarsize)){
                 System.out.println("Enemy out of sight");
                 retval.assign(StateTypes.DEFAULT_STATE);
                 defaultAction = false;
             }
-            else if(Tools.isSmall(playerList.get(1), self.size.doubleValue() )){
+            else if(RadarHandler.isSmall(playerList.get(1), self.size.doubleValue() )){
                 System.out.println("Smaller enemy detected");
                 retval.assign(StateTypes.ATTACK_STATE);
                 defaultAction = false;
