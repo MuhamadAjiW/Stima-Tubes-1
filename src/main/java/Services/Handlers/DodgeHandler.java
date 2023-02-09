@@ -106,7 +106,7 @@ public class DodgeHandler {
             closestDistance = closestDistance(botTrajectory, torpedoTrajectory);
             System.out.println("Closest interpolated distance to torpedo: " + closestDistance);
             if(closestDistance != -9999){
-                if(closestDistance < bot.size + torpedoList.get(i).size + 5){
+                if(closestDistance < bot.size + torpedoList.get(i).size){
                     
                     if (timeToIntercept(botTrajectory, torpedoTrajectory) < (bot.size+torpedoList.get(i).size)/torpedoTrajectory.vel + 5){
                         critical = true;
