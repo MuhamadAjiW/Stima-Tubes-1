@@ -83,6 +83,6 @@ public class DefaultState extends StateBase{
         else{
             retval.assign(Tools.getHeadingBetween(self.getPosition(), gameState.world.getCenterPoint()));
         }
-        retval.assign(StateTypes.DEFAULT_STATE);
+        retval.assign(PlayerActions.FORWARD);
     }
 }

@@ -61,7 +61,7 @@ public class DodgeHandler {
         
                 } while (cachedDst > targetDst && !(targetDst < 1 && targetDst > -1));
             }
-            if (retval == 1){
+            if (retval < 2){
                 retval = -9999;
             }
         }
@@ -95,6 +95,7 @@ public class DodgeHandler {
         Trajectory botTrajectory;
         Trajectory torpedoTrajectory;
         boolean hit;
+        int time;
         int i;
 
         hit = false;
@@ -106,9 +107,10 @@ public class DodgeHandler {
             closestDistance = closestDistance(botTrajectory, torpedoTrajectory);
             System.out.println("Closest interpolated distance to torpedo: " + closestDistance);
             if(closestDistance != -9999){
-                if(closestDistance < bot.size + torpedoList.get(i).size){
-                    
-                    if (timeToIntercept(botTrajectory, torpedoTrajectory) < (bot.size+torpedoList.get(i).size)/torpedoTrajectory.vel + 5){
+                if(closestDistance < bot.size + torpedoList.get(i).size - 5){
+                 
+                    time = timeToIntercept(botTrajectory, torpedoTrajectory);
+                    if (time < (bot.size+torpedoList.get(i).size)/torpedoTrajectory.vel + 5  && time > 2){
                         critical = true;
                     }
 

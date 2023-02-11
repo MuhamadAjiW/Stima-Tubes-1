@@ -47,7 +47,7 @@ public class AttackState extends StateBase {
             else {
                 System.out.println("Enemy distance: " + Tools.getDistanceBetween(self, playerList.get(1)));
                 System.out.println("Torpedo count: " + self.TorpedoSalvoCount);
-                if(self.TorpedoSalvoCount > 0){
+                if(self.TorpedoSalvoCount > 0 && self.size > 10){
                     fireTorpedoes(enemyDirection);
                     defaultAction = false;
                 }
@@ -59,16 +59,16 @@ public class AttackState extends StateBase {
         }
 
         
+        pathfind(retval.getNewAction().heading);
         return retval;
     }
 
+
+    //sub
     public static void defaultAction(int enemyDirection){
         System.out.println("In pursuit");
         retval.assign(PlayerActions.FORWARD);
         retval.assign(enemyDirection);
-        retval.assign(StateTypes.ATTACK_STATE);
-        
-        pathfind(retval.getNewAction().heading);
     }
     
 }

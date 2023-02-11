@@ -39,7 +39,7 @@ public class EscapeState extends StateBase {
             else{
                 System.out.println("Enemy distance: " + Tools.getDistanceBetween(self, playerList.get(1)));
                 System.out.println("Torpedo count: " + self.TorpedoSalvoCount);
-                if(self.TorpedoSalvoCount > 0){
+                if(self.TorpedoSalvoCount > 0 && self.size > 10){
                     fireTorpedoes(enemyDirection);
                     defaultAction = false;
                 }
@@ -49,6 +49,7 @@ public class EscapeState extends StateBase {
                 }
             }
         }
+        pathfind(retval.getNewAction().heading);
         return retval;
     }
 
@@ -88,9 +89,6 @@ public class EscapeState extends StateBase {
             System.out.println("Just running");
             retval.assign((enemyDirection + 180)%360);
         }
-        
-        pathfind(retval.getNewAction().heading);
         retval.assign(PlayerActions.FORWARD);
-        retval.assign(StateTypes.ESCAPE_STATE);
     }
 }

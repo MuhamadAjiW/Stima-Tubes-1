@@ -1,7 +1,6 @@
 package Services.States;
 
 import Enums.PlayerActions;
-import Enums.StateTypes;
 import Models.GameObject;
 import Models.GameState;
 import Models.PlayerAction;
@@ -44,6 +43,5 @@ public class StateBase {
         System.out.println("Firing torpedoes");
         retval.assign(PlayerActions.FIRETORPEDOES);
         retval.assign(direction);
-        retval.assign(StateTypes.ESCAPE_STATE);
     }
 }
