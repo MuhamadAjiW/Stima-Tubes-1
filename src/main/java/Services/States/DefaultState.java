@@ -32,12 +32,14 @@ public class DefaultState extends StateBase{
                 if(RadarHandler.isBig(playerList.get(1), self.size.doubleValue() )){
                     System.out.println("Enemy is big, size: " + playerList.get(1).size);
                     retval.assign(StateTypes.ESCAPE_STATE);
+                    retval.assign(PlayerActions.STOP);
                     defaultAction = false;
                 }
                 else{
                     if(RadarHandler.isSmall(playerList.get(1), self.size.doubleValue() )){
                         System.out.println("Enemy is small, size: " + playerList.get(1).size);
                         retval.assign(StateTypes.ATTACK_STATE);
+                        retval.assign(PlayerActions.STOP);
                         defaultAction = false;
                     }
                     else{
@@ -51,6 +53,7 @@ public class DefaultState extends StateBase{
                 if(!NavigationHandler.outsideBound(gameState, self)){
                     System.out.println("Ship is big, firing missles nonetheless");
                     retval.assign(StateTypes.ATTACK_STATE);
+                    retval.assign(PlayerActions.STOP);
                     defaultAction = false;
                 }
             }
@@ -60,7 +63,7 @@ public class DefaultState extends StateBase{
             defaultAction();
         }
 
-        pathfind(retval.getNewAction().heading);
+        pathfind(retval.getHeading());
         return retval;
     }
 
@@ -75,8 +78,6 @@ public class DefaultState extends StateBase{
                 .collect(Collectors.toList());
 
         // 
-
-        retval.assign(PlayerActions.FORWARD);
         if(!foodList.isEmpty()){
             retval.assign(Tools.getHeadingBetween(foodList.get(0), self));
         }

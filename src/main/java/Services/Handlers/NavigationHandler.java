@@ -20,7 +20,7 @@ public class NavigationHandler {
         boolean out;
         double dst;
         out = false;
-        dst = (gameState.world.radius - obj.getSize() - 20) - Math.sqrt((obj.getPosition().x*obj.getPosition().x) + (obj.getPosition().y*obj.getPosition().y));
+        dst = (gameState.world.radius - obj.getSize() - 20 - obj.getSpeed()) - Math.sqrt((obj.getPosition().x*obj.getPosition().x) + (obj.getPosition().y*obj.getPosition().y));
         System.out.println("Distance to outer rings: " + dst);
         if(dst < 0){
             out = true;

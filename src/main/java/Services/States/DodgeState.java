@@ -17,14 +17,21 @@ public class DodgeState extends StateBase {
 
     public static Response runState(){
         boolean defaultAction;
+        List<GameObject> torpedoList;
+
         defaultAction = true;
+        torpedoList = gameState.getGameObjects()
+                    .stream().filter(item -> item.getGameObjectType() == ObjectTypes.TORPEDOSALVO)
+                    .sorted(Comparator
+                            .comparing(item -> Tools.getDistanceBetween(self, item)))
+                    .collect(Collectors.toList());
 
 
         if(defaultAction){
             //TODO: IMPLEMENTASI DODGE STATE
             System.out.println("Dodging torpedo");
             System.out.println("Shield count: " + self.ShieldCount);
-            if(DodgeHandler.critical && self.ShieldCount > 0 && self.size > 30){
+            if(DodgeHandler.critical && self.ShieldCount > 0 && self.size > 40 && torpedoList.size() > 0){
                 retval.assign(PlayerActions.ACTIVATESHIELD);
                 System.out.println("Shields deployed");
             }

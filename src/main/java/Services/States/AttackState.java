@@ -41,6 +41,7 @@ public class AttackState extends StateBase {
             else if(RadarHandler.isBig(playerList.get(1), self.size.doubleValue() )){
                 System.out.println("Bigger enemy detected");
                 retval.assign(StateTypes.ESCAPE_STATE);
+                retval.assign(PlayerActions.STOP);
                 defaultAction = false;
             }
 
@@ -59,7 +60,7 @@ public class AttackState extends StateBase {
         }
 
         
-        pathfind(retval.getNewAction().heading);
+        pathfind(retval.getHeading());
         return retval;
     }
 

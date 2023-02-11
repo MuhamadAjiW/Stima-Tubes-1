@@ -26,21 +26,22 @@ public class StateBase {
 
     //Generic Actions
     public static void pathfind(int currentHeading){
-        if(retval.getNewAction().action == PlayerActions.FORWARD){
-            if (NavigationHandler.outsideBound(gameState, self)){
-                retval.assign(NavigationHandler.dodgeEdge(self, gameState));
+        if (NavigationHandler.outsideBound(gameState, self)){
+            retval.assign(NavigationHandler.dodgeEdge(self, gameState));
+            retval.assign(PlayerActions.FORWARD);
+        }
+        else{
+            if (RadarHandler.detectThreat(gameState, self, Radarsize/2)){
+                retval.assign(NavigationHandler.dodgeEnemy());
             }
-            else{
-                if (RadarHandler.detectThreat(gameState, self, Radarsize - 70)){
-                    retval.assign(NavigationHandler.dodgeEnemy());
-                }
+
+            if (retval.getNewAction().action != PlayerActions.FIRETORPEDOES){
                 retval.assign(NavigationHandler.dodgeGas(currentHeading, gameState, self));
             }
         }
     }
 
     public static void fireTorpedoes(int direction){
-        System.out.println("Firing torpedoes");
         retval.assign(PlayerActions.FIRETORPEDOES);
         retval.assign(direction);
     }
