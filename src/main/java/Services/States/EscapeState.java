@@ -67,20 +67,23 @@ public class EscapeState extends StateBase {
 
         notfoundFood = true;
         i = 0;
-        while (notfoundFood && i < 10){
-            int closestFoodDirection;
-            closestFoodDirection = Tools.getHeadingBetween(foodList.get(i), self);
-            if(Tools.aroundDegrees(closestFoodDirection, (enemyDirection + 180)%360, 20)){
-                System.out.println("Running while fetching food");
-                System.out.println("Enemy direction is: " + enemyDirection + ", food direction is: " + closestFoodDirection);
-                notfoundFood = false;
-                retval.assign(closestFoodDirection);
-                break;
-            }
-            else{
-                i++;
+        if(!foodList.isEmpty()){
+            while (notfoundFood && i < 10){
+                int closestFoodDirection;
+                closestFoodDirection = Tools.getHeadingBetween(foodList.get(i), self);
+                if(Tools.aroundDegrees(closestFoodDirection, (enemyDirection + 180)%360, 20)){
+                    System.out.println("Running while fetching food");
+                    System.out.println("Enemy direction is: " + enemyDirection + ", food direction is: " + closestFoodDirection);
+                    notfoundFood = false;
+                    retval.assign(closestFoodDirection);
+                    break;
+                }
+                else{
+                    i++;
+                }
             }
         }
+        
         if (notfoundFood){
             System.out.println("Just running");
             retval.assign((enemyDirection + 180)%360);

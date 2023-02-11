@@ -80,6 +80,9 @@ public class DefaultState extends StateBase{
         if(!foodList.isEmpty()){
             retval.assign(Tools.getHeadingBetween(foodList.get(0), self));
         }
+        else{
+            retval.assign(Tools.getHeadingBetween(self.getPosition(), gameState.world.getCenterPoint()));
+        }
         retval.assign(StateTypes.DEFAULT_STATE);
     }
 }

@@ -27,14 +27,16 @@ public class StateBase {
 
     //Generic Actions
     public static void pathfind(int currentHeading){
-        if (NavigationHandler.outsideBound(gameState, self)){
-            retval.assign(NavigationHandler.dodgeEdge(self, gameState));
-        }
-        else{
-            if (RadarHandler.detectThreat(gameState, self, Radarsize - 70)){
-                retval.assign(NavigationHandler.dodgeEnemy());
+        if(retval.getNewAction().action == PlayerActions.FORWARD){
+            if (NavigationHandler.outsideBound(gameState, self)){
+                retval.assign(NavigationHandler.dodgeEdge(self, gameState));
             }
-            retval.assign(NavigationHandler.dodgeGas(currentHeading, gameState, self));
+            else{
+                if (RadarHandler.detectThreat(gameState, self, Radarsize - 70)){
+                    retval.assign(NavigationHandler.dodgeEnemy());
+                }
+                retval.assign(NavigationHandler.dodgeGas(currentHeading, gameState, self));
+            }
         }
     }
 
