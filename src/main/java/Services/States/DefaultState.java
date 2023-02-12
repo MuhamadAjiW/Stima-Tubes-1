@@ -30,12 +30,14 @@ public class DefaultState extends StateBase{
                 if(RadarHandler.isBig(playerList.get(1), self.size.doubleValue() )){
                     System.out.println("Enemy is big, size: " + playerList.get(1).size);
                     retval.assign(StateTypes.ESCAPE_STATE);
+                    retval.assign(PlayerActions.STOP);
                     defaultAction = false;
                 }
                 else{
                     if(RadarHandler.isSmall(playerList.get(1), self.size.doubleValue() )){
                         System.out.println("Enemy is small, size: " + playerList.get(1).size);
                         retval.assign(StateTypes.ATTACK_STATE);
+                        retval.assign(PlayerActions.STOP);
                         defaultAction = false;
                     }
                     else{
@@ -49,6 +51,7 @@ public class DefaultState extends StateBase{
                 if(!NavigationHandler.outsideBound(gameState, self)){
                     System.out.println("Ship is big, firing missles nonetheless");
                     retval.assign(StateTypes.ATTACK_STATE);
+                    retval.assign(PlayerActions.STOP);
                     defaultAction = false;
                 }
             }
@@ -62,12 +65,12 @@ public class DefaultState extends StateBase{
             // }
         }
 
-        pathfind(retval.getNewAction().heading);
+        pathfind(retval.getHeading());
         return retval;
     }
 
     // Hoarding Food
-    public static void hoardingFood(boolean direction){
+    public static void hoardingFood(){
         System.out.println("Hoarding food");
         // Initialize Values
         List<GameObject> foodList;
@@ -85,22 +88,27 @@ public class DefaultState extends StateBase{
                 .collect(Collectors.toList());
 
         // Make a cluster
-        for (int i=0; i<foodList.size(); i++){
-            if((Tools.getDistanceBetween(foodList.get(0), foodList.get(i))) <= (sizeSelf - foodThreshold)){
-                objFood = i;
-                disFood = Tools.getDistanceBetween(foodList.get(0), foodList.get(i));
-                xTuj = Tools.getXbyDistance(Tools.getHeadingBetween(foodList.get(objFood), foodList.get(0)), disFood / 2);
-                yTuj = Tools.getYbyDistance(Tools.getHeadingBetween(foodList.get(objFood), foodList.get(0)), disFood / 2);
-                newHeading = (Tools.toDegrees(Math.atan2(yTuj - self.getPosition().y,
-                    xTuj - self.getPosition().x)) + 360) % 360;
-            } else {
-                break;
-            }
+        if(!foodList.isEmpty()){
+            for (int i=0; i<foodList.size(); i++){
+              if((Tools.getDistanceBetween(foodList.get(0), foodList.get(i))) <= (sizeSelf - foodThreshold)){
+                  objFood = i;
+                  disFood = Tools.getDistanceBetween(foodList.get(0), foodList.get(i));
+                  xTuj = Tools.getXbyDistance(Tools.getHeadingBetween(foodList.get(objFood), foodList.get(0)), disFood / 2);
+                  yTuj = Tools.getYbyDistance(Tools.getHeadingBetween(foodList.get(objFood), foodList.get(0)), disFood / 2);
+                  newHeading = (Tools.toDegrees(Math.atan2(yTuj - self.getPosition().y,
+                      xTuj - self.getPosition().x)) + 360) % 360;
+              } else {
+                  break;
+              }
+          }
+
+          retval.assign(newHeading);
+          retval.assign(StateTypes.DEFAULT_STATE);
+        } 
+        else{
+            retval.assign(Tools.getHeadingBetween(self.getPosition(), gameState.world.getCenterPoint()));
         }
-    
         retval.assign(PlayerActions.FORWARD);
-        retval.assign(newHeading + 360);
-        retval.assign(StateTypes.DEFAULT_STATE);
     }
 
 

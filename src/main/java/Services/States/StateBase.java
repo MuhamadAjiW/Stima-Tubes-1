@@ -1,7 +1,6 @@
 package Services.States;
 
 import Enums.PlayerActions;
-import Enums.StateTypes;
 import Models.GameObject;
 import Models.GameState;
 import Models.PlayerAction;
@@ -29,20 +28,21 @@ public class StateBase {
     public static void pathfind(int currentHeading){
         if (NavigationHandler.outsideBound(gameState, self)){
             retval.assign(NavigationHandler.dodgeEdge(self, gameState));
+            retval.assign(PlayerActions.FORWARD);
         }
         else{
-            if (RadarHandler.detectThreat(gameState, self, Radarsize - 70)){
+            if (RadarHandler.detectThreat(gameState, self, Radarsize/2)){
                 retval.assign(NavigationHandler.dodgeEnemy());
             }
-            retval.assign(NavigationHandler.dodgeGas(currentHeading, gameState, self));
-            
+
+            if (retval.getNewAction().action != PlayerActions.FIRETORPEDOES){
+                retval.assign(NavigationHandler.dodgeGas(currentHeading, gameState, self));
+            }
         }
     }
 
     public static void fireTorpedoes(int direction){
-        System.out.println("Firing torpedoes");
         retval.assign(PlayerActions.FIRETORPEDOES);
         retval.assign(direction);
-        retval.assign(StateTypes.ESCAPE_STATE);
     }
 }

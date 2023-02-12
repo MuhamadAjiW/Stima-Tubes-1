@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import Enums.ObjectTypes;
+import Enums.PlayerActions;
 import Enums.StateTypes;
 import Models.GameObject;
 import Services.Common.Response;
@@ -12,19 +13,37 @@ import Services.Common.Tools;
 import Services.Handlers.DodgeHandler;
 
 public class DodgeState extends StateBase {
+    GameObject markedTorpedo;
+
     public static Response runState(){
         boolean defaultAction;
+        List<GameObject> torpedoList;
+
         defaultAction = true;
+        torpedoList = gameState.getGameObjects()
+                    .stream().filter(item -> item.getGameObjectType() == ObjectTypes.TORPEDOSALVO)
+                    .sorted(Comparator
+                            .comparing(item -> Tools.getDistanceBetween(self, item)))
+                    .collect(Collectors.toList());
 
 
         if(defaultAction){
             //TODO: IMPLEMENTASI DODGE STATE
             System.out.println("Dodging torpedo");
-            retval.assign(StateTypes.DEFAULT_STATE);
+            System.out.println("Shield count: " + self.ShieldCount);
+            if(DodgeHandler.critical && self.ShieldCount > 0 && self.size > 40 && torpedoList.size() > 0){
+                retval.assign(PlayerActions.ACTIVATESHIELD);
+                System.out.println("Shields deployed");
+            }
+            else{
+                retval.assign(StateTypes.DEFAULT_STATE);
+            }
         }
+        pathfind(retval.getHeading());
         return retval;
     }
 
+    //sub
     public static Response detectTorpedoes(){
         List<GameObject> torpedoList;
         torpedoList = gameState.getGameObjects()

@@ -41,13 +41,14 @@ public class AttackState extends StateBase {
             else if(RadarHandler.isBig(playerList.get(1), self.size.doubleValue() )){
                 System.out.println("Bigger enemy detected");
                 retval.assign(StateTypes.ESCAPE_STATE);
+                retval.assign(PlayerActions.STOP);
                 defaultAction = false;
             }
 
             else {
                 System.out.println("Enemy distance: " + Tools.getDistanceBetween(self, playerList.get(1)));
                 System.out.println("Torpedo count: " + self.TorpedoSalvoCount);
-                if(self.TorpedoSalvoCount > 0){
+                if(self.TorpedoSalvoCount > 0 && self.size > 10){
                     fireTorpedoes(enemyDirection);
                     defaultAction = false;
                 }
@@ -59,16 +60,16 @@ public class AttackState extends StateBase {
         }
 
         
+        pathfind(retval.getHeading());
         return retval;
     }
 
+
+    //sub
     public static void defaultAction(int enemyDirection){
         System.out.println("In pursuit");
         retval.assign(PlayerActions.FORWARD);
         retval.assign(enemyDirection);
-        retval.assign(StateTypes.ATTACK_STATE);
-        
-        pathfind(retval.getNewAction().heading);
     }
     
 }

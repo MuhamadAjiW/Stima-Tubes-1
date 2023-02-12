@@ -8,6 +8,8 @@ import Services.Common.Tools;
 import Services.Common.Trajectory;
 
 public class DodgeHandler {
+    public static boolean critical = false;
+
     public static Position intercept(Trajectory line1,Trajectory line2){
         Position retval = new Position();
 
@@ -20,8 +22,8 @@ public class DodgeHandler {
         //y = m2x + c2
         //y - m1x = c1
         //y - m2x = c2
-        //1 - m1 (y) = c1
-        //1 - m2 (x) = c2
+        //1 - m1 | (y) = c1
+        //1 - m2 | (x) = c2
         //1/det
         //-m2 m1
         //-1   1
@@ -59,7 +61,7 @@ public class DodgeHandler {
         
                 } while (cachedDst > targetDst && !(targetDst < 1 && targetDst > -1));
             }
-            if (retval == 1){
+            if (retval < 4){
                 retval = -9999;
             }
         }
@@ -68,13 +70,19 @@ public class DodgeHandler {
     }
 
     public static double closestDistance(Trajectory line1, Trajectory line2){
-        double retval;
         int time;
+        time = timeToIntercept(line1, line2);
+
+        return distanceAfterTime(line1, line2, time);
+
+    }
+
+    public static double distanceAfterTime(Trajectory line1, Trajectory line2, int time){
+        double retval;
         Position interpolatedPosition1;
         Position interpolatedPosition2;
 
         retval = 0;
-        time = timeToIntercept(line1, line2);
 
         if (time == -9999){
             retval = -9999;
@@ -93,17 +101,27 @@ public class DodgeHandler {
         Trajectory botTrajectory;
         Trajectory torpedoTrajectory;
         boolean hit;
+        int time;
         int i;
 
         hit = false;
+        critical = false;
         i = 0;
         botTrajectory = new Trajectory(bot);
         while(!hit && i < torpedoList.size()){
             torpedoTrajectory = new Trajectory(torpedoList.get(i));
-            closestDistance = closestDistance(botTrajectory, torpedoTrajectory);
+
+            time = timeToIntercept(botTrajectory, torpedoTrajectory);
+            closestDistance = distanceAfterTime(botTrajectory, torpedoTrajectory, time);
+            
             System.out.println("Closest interpolated distance to torpedo: " + closestDistance);
             if(closestDistance != -9999){
-                if(closestDistance < bot.size + torpedoList.get(i).size + 5){
+                if(closestDistance < bot.size + torpedoList.get(i).size - 5){
+                 
+                    if (time < ((bot.size+torpedoList.get(i).size)/torpedoTrajectory.vel) + 5  && time > 3){
+                        critical = true;
+                    }
+
                     System.out.println("Hit!");
                     hit = true;
                 }
