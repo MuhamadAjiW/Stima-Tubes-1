@@ -49,4 +49,12 @@ public class Tools {
             return (currentDegree < targetDegree + range && currentDegree > targetDegree - range);
         }
     }  
+
+    public static Double getXbyDistance(int heading, Double distance, GameObject obj) {
+        return ((Math.cos(heading) * distance) + obj.getPosition().x);
+    }
+
+    public static Double getYbyDistance(int heading, Double distance, GameObject obj) {
+        return ((Math.sin(heading) * distance) + obj.getPosition().y);
+    }
 }

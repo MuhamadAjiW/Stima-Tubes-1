@@ -35,6 +35,7 @@ public class StateBase {
                 retval.assign(NavigationHandler.dodgeEnemy());
             }
             retval.assign(NavigationHandler.dodgeGas(currentHeading, gameState, self));
+            
         }
     }
 
