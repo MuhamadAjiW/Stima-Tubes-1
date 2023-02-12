@@ -39,6 +39,4 @@ public class Trajectory {
         retval.y = (int) Math.round(vy*time + init.y);
         return retval;
     }
-
-    public Position 
 }

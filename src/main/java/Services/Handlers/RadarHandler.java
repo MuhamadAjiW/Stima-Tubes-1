@@ -53,16 +53,16 @@ public class RadarHandler {
         return big;
     }
 
-    public static boolean detectEdge(GameObject bot, Double threshold){
+    public static boolean detectEdge(GameObject bot, Double threshold, GameState gameState){
         boolean edgeDetected;
         int worldRad;
         double sizeSelf, xBoundary, yBoundary;
 
         edgeDetected = false;
-        worldRad = World.getRadius();
-        sizeSelf = self.size.doubleValue();
-        xBoundary = getXbyDistance(heading, sizeSelf + threshold, bot);
-        yBoundary = getYbyDistance(heading, sizeSelf + threshold, bot);
+        worldRad = gameState.world.getRadius();
+        sizeSelf = bot.size.doubleValue();
+        xBoundary = Tools.getXbyDistance(bot.currentHeading, sizeSelf + threshold, bot);
+        yBoundary = Tools.getYbyDistance(bot.currentHeading, sizeSelf + threshold, bot);
 
         if ((xBoundary * xBoundary) + ((yBoundary * yBoundary)) <= worldRad){
             edgeDetected = true;

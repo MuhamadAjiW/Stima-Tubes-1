@@ -8,7 +8,7 @@ import Enums.ObjectTypes;
 import Enums.PlayerActions;
 import Enums.StateTypes;
 import Models.GameObject;
-import Models.World;
+import Models.Position;
 import Services.Common.Response;
 import Services.Common.Tools;
 import Services.Handlers.NavigationHandler;
@@ -58,14 +58,10 @@ public class DefaultState extends StateBase{
         }
 
         if (defaultAction){
-            // hoardingFood();
-
-            // if(detectEdge()){
-            //     dodgeEdge();
-            // }
+            hoardingFood();
         }
 
-        pathfind(retval.getHeading());
+        pathfindDef(retval.getHeading());
         return retval;
     }
 
@@ -74,12 +70,12 @@ public class DefaultState extends StateBase{
         System.out.println("Hoarding food");
         // Initialize Values
         List<GameObject> foodList;
-        Double foodThreshold, sizeSelf, xTuj, yTuj, disFood;
-        int newHeading, objFood;
+        double foodThreshold, sizeSelf;
+        int newHeading;
+        double xAwal, yAwal;
 
         sizeSelf = self.size.doubleValue();
         foodThreshold = 0.00;
-        newHeading = Tools.getHeadingBetween(foodList.get(0), self);
 
         foodList = gameState.getGameObjects()
                 .stream().filter(item -> item.getGameObjectType() == ObjectTypes.FOOD)
@@ -89,18 +85,20 @@ public class DefaultState extends StateBase{
 
         // Make a cluster
         if(!foodList.isEmpty()){
-            for (int i=0; i<foodList.size(); i++){
+            newHeading = Tools.getHeadingBetween(foodList.get(0), self);
+            xAwal = (double) (foodList.get(0).getPosition().x);
+            yAwal = (double) (foodList.get(0).getPosition().y);
+            for (int i=1; i<foodList.size(); i++){
               if((Tools.getDistanceBetween(foodList.get(0), foodList.get(i))) <= (sizeSelf - foodThreshold)){
-                  objFood = i;
-                  disFood = Tools.getDistanceBetween(foodList.get(0), foodList.get(i));
-                  xTuj = Tools.getXbyDistance(Tools.getHeadingBetween(foodList.get(objFood), foodList.get(0)), disFood / 2);
-                  yTuj = Tools.getYbyDistance(Tools.getHeadingBetween(foodList.get(objFood), foodList.get(0)), disFood / 2);
-                  newHeading = (Tools.toDegrees(Math.atan2(yTuj - self.getPosition().y,
-                      xTuj - self.getPosition().x)) + 360) % 360;
+                xAwal = (foodList.get(i).getPosition().x + (double) xAwal) / 2;
+                yAwal = (foodList.get(i).getPosition().y + (double) yAwal) / 2;
               } else {
                   break;
               }
           }
+
+          Position tujuan = new Position((int) xAwal, (int) yAwal);
+          newHeading = Tools.getHeadingBetween(tujuan, self.getPosition());
 
           retval.assign(newHeading);
           retval.assign(StateTypes.DEFAULT_STATE);
@@ -119,6 +117,13 @@ public class DefaultState extends StateBase{
 
     //threshold kalo udah gede banget attack aja
     public static void pathfindDef(int currentHeading){
+        List<GameObject> objectList;
+        objectList = gameState.getGameObjects()
+        .stream().filter(item -> item.getGameObjectType() == ObjectTypes.GAS_CLOUD || item.getGameObjectType() == ObjectTypes.WORMHOLE)
+        .sorted(Comparator
+                .comparing(item -> Tools.getDistanceBetween(self, item)))
+        .collect(Collectors.toList());;
+
         if (NavigationHandler.outsideBound(gameState, self)){
             retval.assign(NavigationHandler.dodgeEdge(self, gameState));
         }
@@ -126,7 +131,9 @@ public class DefaultState extends StateBase{
             if (RadarHandler.detectThreat(gameState, self, Radarsize - 70)){
                 retval.assign(NavigationHandler.dodgeEnemy());
             }
-            retval.assign(NavigationHandler.dodgeObjects(currentHeading, gameState, self));
+            retval.assign(NavigationHandler.dodgeObjects(currentHeading, gameState, self, objectList));
+            //retval.assign(NavigationHandler.dodgeObjects(currentHeading, gameState, self));
             
         }
+    }
 }

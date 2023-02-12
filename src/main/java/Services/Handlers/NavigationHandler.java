@@ -14,7 +14,6 @@ public class NavigationHandler {
     private static int cachedHeading;
     private static boolean dodging = false;
     private static int temp;
-    private static GameObject cachedGas;
     private static GameObject cachedObject;
 
     public static boolean outsideBound(GameState gameState, GameObject obj){
@@ -54,7 +53,7 @@ public class NavigationHandler {
     }
 
     public static boolean decideTurnDir(int currentHeading, GameObject self, GameObject avoidObj){
-        int directionToCentre;
+        int directionToObj;
         boolean direction;
         directionToObj = Tools.getHeadingBetween(self.getPosition(), avoidObj.getPosition());
 
@@ -71,7 +70,7 @@ public class NavigationHandler {
             } else{
                 direction = false; //0 artinya objek ada di kiri
             }
-
+        }
         return direction;
     }
 
@@ -193,42 +192,45 @@ public class NavigationHandler {
 
         // Inisialisasi
         int newHeading;
-        Double sizeSelf;
+        int heading;
         List<GameObject> gasList;
         List<GameObject> playerList;
-        sizeSelf = bot.getSize();
+
+        heading = bot.currentHeading;
+        newHeading = heading;
         gasList = gameState.getGameObjects()
                             .stream().filter(item -> item.getGameObjectType() == ObjectTypes.GAS_CLOUD)
                             .sorted(Comparator
-                                    .comparing(item -> Tools.getDistanceBetween(self, item)))
+                                    .comparing(item -> Tools.getDistanceBetween(bot, item)))
                             .collect(Collectors.toList());
         playerList = gameState.getPlayerGameObjects().stream()
-                    .sorted(Comparator.comparing(item -> Tools.getDistanceBetween(self, item)))
+                    .sorted(Comparator.comparing(item -> Tools.getDistanceBetween(bot, item)))
                     .collect(Collectors.toList());
         
         // Dodge Gas
-        if (!gasList.isEmpty || !playerList.isEmpty){
-                if (getDistanceBetween(bot, playerList.get(1)) > getDistanceBetween(bot, gasList.get(1))){
+        if (!gasList.isEmpty() || !playerList.isEmpty()){
+            if (RadarHandler.isBig(playerList.get(1), bot.size.doubleValue())){
+                if (Tools.getDistanceBetween(bot, playerList.get(1)) > Tools.getDistanceBetween(bot, gasList.get(1))){
                     System.out.println("Gas is closer than enemy.");
-                    if(decideTurnDir(heading, bot, gasList[0])){
-                    System.out.println("Gas is Detected on your right, Moving Left!");
-                    newHeading = (heading + 90) % 360;
+                    if(decideTurnDir(heading, bot, gasList.get(0))){
+                        System.out.println("Gas is Detected on your right, Moving Left!");
+                        newHeading = (heading + 90) % 360;
                     } else { 
                         System.out.println("Gas is Detected on your left, Moving Right!");
                         newHeading = (heading - 90) % 360; }
                 } else {
                     System.out.println("Enemy is closer than gas.");
                     if(decideTurnDir(heading, bot, playerList.get(1))){
-                    System.out.println("Enemy is Detected on your right, Moving Left!");
-                    newHeading = (heading + 90) % 360;
+                        System.out.println("Enemy is Detected on your right, Moving Left!");
+                        newHeading = (heading + 90) % 360;
                     } else { 
                         System.out.println("Enemy is Detected on your left, Moving Right!");
                         newHeading = (heading - 90) % 360; }
                 } 
+            }   
         }
 
         return newHeading;
-
     }
 
     // bs didelete kalo udah aman
@@ -254,7 +256,7 @@ public class NavigationHandler {
                 while(!near && i < gasList.size()){
                     if (self.getSize() + gasList.get(i).getSize() + 20 > Tools.getDistanceBetween(self, gasList.get(i))){
                         System.out.println("Dodging Gas Clouds");
-                        cachedGas = gasList.get(i);
+                        cachedObject = gasList.get(i);
                         
                         temp = NavigationHandler.decideTurnDir(currentHeading, self, gameState);
         
@@ -288,10 +290,10 @@ public class NavigationHandler {
                 }
     
                 while(!near && i < gasList.size()){
-                    if(!(gasList.get(i).position == cachedGas.position)){
+                    if(!(gasList.get(i).position == cachedObject.position)){
                         if (self.getSize() + gasList.get(i).getSize() + 20 > Tools.getDistanceBetween(self, gasList.get(i))){
                             System.out.println("Different Gas found");
-                            cachedGas = gasList.get(i);
+                            cachedObject = gasList.get(i);
     
                             if (temp == 1){
                                 System.out.println("Heading right");
