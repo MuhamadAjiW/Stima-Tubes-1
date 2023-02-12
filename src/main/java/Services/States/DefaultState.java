@@ -58,7 +58,15 @@ public class DefaultState extends StateBase{
         }
 
         if (defaultAction){
-            hoardingFood();
+            // Checking Supernova
+            if(self.SupernovaAvailable == 1){
+                System.out.println("Supernova acquired!");
+            }
+            // Prioritas 1: Supernova
+            // Thresholdnya masih 5000
+            if (RadarHandler.detectSupernova(self, 5000.0, gameState) && self.SupernovaAvailable == 0){
+                findSupernova();
+            } else { hoardingFood(); }
         }
 
         pathfindDef(retval.getHeading());
@@ -111,8 +119,18 @@ public class DefaultState extends StateBase{
 
 
     public static void findSupernova(){
-        // can kepikiran carana kumaha tapi klo range <50 pasti kesana, dodge objects, ignore foods
+        System.out.println("Finding Supernova");
+        // Initialize Values
+        List<GameObject> supernovaList;
+        supernovaList = gameState.getGameObjects()
+                .stream().filter(item -> item.getGameObjectType() == ObjectTypes.SUPERNOVAPICKUP)
+                .sorted(Comparator
+                        .comparing(item -> Tools.getDistanceBetween(self, item)))
+                .collect(Collectors.toList());
         
+        retval.assign(Tools.getHeadingBetween(supernovaList.get(0), self));
+        retval.assign(StateTypes.DEFAULT_STATE);
+        retval.assign(PlayerActions.FORWARD);
     }
 
     //threshold kalo udah gede banget attack aja

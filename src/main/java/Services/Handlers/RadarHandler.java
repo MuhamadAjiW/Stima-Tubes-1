@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import Enums.ObjectTypes;
 import Models.GameObject;
 import Models.GameState;
 import Services.Common.Tools;
@@ -69,5 +70,27 @@ public class RadarHandler {
         }
         
         return edgeDetected;
+    }
+
+    public static boolean detectSupernova(GameObject bot, Double threshold, GameState gameState){
+        boolean supernovaDetected;
+        List<GameObject> supernovaList;
+
+        supernovaDetected = false;
+
+        supernovaList = gameState.getGameObjects()
+                .stream().filter(item -> item.getGameObjectType() == ObjectTypes.SUPERNOVAPICKUP)
+                .sorted(Comparator
+                        .comparing(item -> Tools.getDistanceBetween(bot, item)))
+                .collect(Collectors.toList());
+
+        if (!supernovaList.isEmpty()){
+            if (Tools.getDistanceBetween(bot, supernovaList.get(0)) < threshold){
+                System.out.println("Supernova detected!");
+                supernovaDetected = true;
+            }
+        }
+
+        return supernovaDetected;
     }
 }
