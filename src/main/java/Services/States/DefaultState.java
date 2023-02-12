@@ -8,6 +8,7 @@ import Enums.ObjectTypes;
 import Enums.PlayerActions;
 import Enums.StateTypes;
 import Models.GameObject;
+import Models.World;
 import Services.Common.Response;
 import Services.Common.Tools;
 import Services.Handlers.NavigationHandler;
@@ -24,9 +25,6 @@ public class DefaultState extends StateBase{
                     .collect(Collectors.toList());
 
         if (!playerList.isEmpty()){
-
-            
-
             if (RadarHandler.detectEnemy(playerList.get(1), self, Radarsize)){
                 System.out.println("Enemy within radar");
                 if(RadarHandler.isBig(playerList.get(1), self.size.doubleValue() )){
@@ -60,30 +58,75 @@ public class DefaultState extends StateBase{
         }
 
         if (defaultAction){
-            defaultAction();
+            // hoardingFood();
+
+            // if(detectEdge()){
+            //     dodgeEdge();
+            // }
         }
 
         pathfind(retval.getHeading());
         return retval;
     }
 
-    public static void defaultAction(){
+    // Hoarding Food
+    public static void hoardingFood(){
         System.out.println("Hoarding food");
-
+        // Initialize Values
         List<GameObject> foodList;
+        Double foodThreshold, sizeSelf, xTuj, yTuj, disFood;
+        int newHeading, objFood;
+
+        sizeSelf = self.size.doubleValue();
+        foodThreshold = 0.00;
+        newHeading = Tools.getHeadingBetween(foodList.get(0), self);
+
         foodList = gameState.getGameObjects()
                 .stream().filter(item -> item.getGameObjectType() == ObjectTypes.FOOD)
                 .sorted(Comparator
                         .comparing(item -> Tools.getDistanceBetween(self, item)))
                 .collect(Collectors.toList());
 
-        // 
+        // Make a cluster
         if(!foodList.isEmpty()){
-            retval.assign(Tools.getHeadingBetween(foodList.get(0), self));
-        }
+            for (int i=0; i<foodList.size(); i++){
+              if((Tools.getDistanceBetween(foodList.get(0), foodList.get(i))) <= (sizeSelf - foodThreshold)){
+                  objFood = i;
+                  disFood = Tools.getDistanceBetween(foodList.get(0), foodList.get(i));
+                  xTuj = Tools.getXbyDistance(Tools.getHeadingBetween(foodList.get(objFood), foodList.get(0)), disFood / 2);
+                  yTuj = Tools.getYbyDistance(Tools.getHeadingBetween(foodList.get(objFood), foodList.get(0)), disFood / 2);
+                  newHeading = (Tools.toDegrees(Math.atan2(yTuj - self.getPosition().y,
+                      xTuj - self.getPosition().x)) + 360) % 360;
+              } else {
+                  break;
+              }
+          }
+
+          retval.assign(newHeading);
+          retval.assign(StateTypes.DEFAULT_STATE);
+        } 
         else{
             retval.assign(Tools.getHeadingBetween(self.getPosition(), gameState.world.getCenterPoint()));
         }
         retval.assign(PlayerActions.FORWARD);
     }
+
+
+    public static void findSupernova(){
+        // can kepikiran carana kumaha tapi klo range <50 pasti kesana, dodge objects, ignore foods
+        
+    }
+
+    //threshold kalo udah gede banget attack aja
+    public static void pathfindDef(int currentHeading){
+        if (NavigationHandler.outsideBound(gameState, self)){
+            retval.assign(NavigationHandler.dodgeEdge(self, gameState));
+        }
+        else{
+            if (RadarHandler.detectThreat(gameState, self, Radarsize - 70)){
+                retval.assign(NavigationHandler.dodgeEnemy());
+            }
+            retval.assign(NavigationHandler.dodgeObjects(currentHeading, gameState, self));
+            
+        }
 }

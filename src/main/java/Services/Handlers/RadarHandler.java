@@ -52,4 +52,22 @@ public class RadarHandler {
         }
         return big;
     }
+
+    public static boolean detectEdge(GameObject bot, Double threshold){
+        boolean edgeDetected;
+        int worldRad;
+        double sizeSelf, xBoundary, yBoundary;
+
+        edgeDetected = false;
+        worldRad = World.getRadius();
+        sizeSelf = self.size.doubleValue();
+        xBoundary = getXbyDistance(heading, sizeSelf + threshold, bot);
+        yBoundary = getYbyDistance(heading, sizeSelf + threshold, bot);
+
+        if ((xBoundary * xBoundary) + ((yBoundary * yBoundary)) <= worldRad){
+            edgeDetected = true;
+        }
+        
+        return edgeDetected;
+    }
 }
