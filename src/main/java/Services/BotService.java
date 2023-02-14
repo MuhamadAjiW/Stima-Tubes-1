@@ -1,6 +1,7 @@
 package Services;
 
 import Models.*;
+import Services.Common.Tester;
 
 import java.util.*;
 
@@ -36,10 +37,14 @@ public class BotService {
 
     public void computeNextPlayerAction(PlayerAction playerAction) {
         StateMachine botState = new StateMachine();
+        int cachedTick = 0;
 
         if (!gameState.getGameObjects().isEmpty()) { // kalo game belum beres
-            playerAction = botState.determineAction(gameState, playerAction, bot);
-            System.out.println("Action: " + playerAction.action.name());
+            if (cachedTick != gameState.world.currentTick){
+                playerAction = botState.determineAction(gameState, playerAction, bot);
+                Tester.appendFile("Action: " + playerAction.action.name(), "testlog.txt");
+                cachedTick = gameState.world.currentTick;
+            }
         }
 
         this.playerAction = playerAction;

@@ -9,13 +9,17 @@ import Enums.PlayerActions;
 import Enums.StateTypes;
 import Models.GameObject;
 import Services.Common.Response;
+import Services.Common.Tester;
 import Services.Common.Tools;
 import Services.Handlers.DodgeHandler;
+import Services.Handlers.NavigationHandler;
 
 public class DodgeState extends StateBase {
-    GameObject markedTorpedo;
+    public static boolean dodging = false;
+    public static int cachedHeading;
 
     public static Response runState(){
+        int temp;
         boolean defaultAction;
         List<GameObject> torpedoList;
 
@@ -29,14 +33,57 @@ public class DodgeState extends StateBase {
 
         if(defaultAction){
             //TODO: IMPLEMENTASI DODGE STATE
-            System.out.println("Dodging torpedo");
-            System.out.println("Shield count: " + self.ShieldCount);
-            if(DodgeHandler.critical && self.ShieldCount > 0 && self.size > 40 && torpedoList.size() > 0){
+            Tester.appendFile("Dodging torpedo", "testlog.txt");
+            Tester.appendFile("Shield count: " + self.ShieldCount, "testlog.txt");
+            if(DodgeHandler.critical && self.ShieldCount > 0 && self.size > 25 && torpedoList.size() > 2){
                 retval.assign(PlayerActions.ACTIVATESHIELD);
-                System.out.println("Shields deployed");
+                Tester.appendFile("Shields deployed", "testlog.txt");
             }
             else{
-                retval.assign(StateTypes.DEFAULT_STATE);
+                if(!NavigationHandler.dodging){
+                    Tester.appendFile("Evasive Manoeuvre", "testlog.txt");
+                    temp = NavigationHandler.decideTurnDir(retval.getHeading(), self, gameState);
+                    
+                    if (!dodging){
+                        cachedHeading = retval.getHeading();
+                        if (temp == 1){
+                            Tester.appendFile("Heading right", "testlog.txt");
+                            retval.assign((cachedHeading + 300)%360);
+                        }
+                        else{
+                            Tester.appendFile("Heading left", "testlog.txt");
+                            retval.assign((cachedHeading + 60)%360);
+                        }
+                        dodging = true;
+                    }
+
+                    else{       
+                        Tester.appendFile("Evasive Manoeuvre Continuation", "testlog.txt");
+                        if (temp == 1){
+                            Tester.appendFile("Heading right", "testlog.txt");
+                            retval.assign((cachedHeading + 300)%360);
+                        }
+                        else{
+                            Tester.appendFile("Heading left", "testlog.txt");
+                            retval.assign((cachedHeading + 60)%360);
+                        }    
+                    }
+                    
+            
+
+                    retval.assign(PlayerActions.FORWARD);
+                    if(!DodgeHandler.hit){
+                        retval.assign(StateTypes.DEFAULT_STATE);
+                        dodging = false;
+                    }
+                }
+                else{
+                    retval.assign(PlayerActions.FORWARD);
+                    if(!DodgeHandler.hit){
+                        retval.assign(StateTypes.DEFAULT_STATE);
+                        dodging = false;
+                    }
+                }
             }
         }
         pathfind(retval.getHeading());
@@ -52,7 +99,7 @@ public class DodgeState extends StateBase {
                             .comparing(item -> Tools.getDistanceBetween(self, item)))
                     .collect(Collectors.toList());
         if (DodgeHandler.inTrajectory(self, torpedoList)){
-            System.out.println("In a torpedo trajectory");
+            Tester.appendFile("In a torpedo trajectory", "testlog.txt");
             retval.assign(StateTypes.DODGE_STATE);
         }
         return retval;

@@ -10,6 +10,7 @@ import Enums.StateTypes;
 import Models.GameObject;
 import Models.Position;
 import Services.Common.Response;
+import Services.Common.Tester;
 import Services.Common.Tools;
 import Services.Handlers.NavigationHandler;
 import Services.Handlers.RadarHandler;
@@ -26,53 +27,74 @@ public class DefaultState extends StateBase{
 
         if (!playerList.isEmpty()){
             if (RadarHandler.detectEnemy(playerList.get(1), self, Radarsize)){
-                System.out.println("Enemy within radar");
+                Tester.appendFile("Enemy within radar", "testlog.txt");
                 if(RadarHandler.isBig(playerList.get(1), self.size.doubleValue() )){
-                    System.out.println("Enemy is big, size: " + playerList.get(1).size);
+                    Tester.appendFile("Enemy is big, size: " + playerList.get(1).size, "testlog.txt");
                     retval.assign(StateTypes.ESCAPE_STATE);
-                    retval.assign(PlayerActions.STOP);
+                    retval.assign(PlayerActions.FORWARD);
                     defaultAction = false;
                 }
                 else{
                     if(RadarHandler.isSmall(playerList.get(1), self.size.doubleValue() )){
-                        System.out.println("Enemy is small, size: " + playerList.get(1).size);
+                        Tester.appendFile("Enemy is small, size: " + playerList.get(1).size, "testlog.txt");
                         retval.assign(StateTypes.ATTACK_STATE);
-                        retval.assign(PlayerActions.STOP);
+                        retval.assign(PlayerActions.FORWARD);
                         defaultAction = false;
                     }
                     else{
-                        System.out.println("Enemy is uncertain, size: " + playerList.get(1).size);
+                        Tester.appendFile("Enemy is uncertain, size: " + playerList.get(1).size, "testlog.txt");
                         //TODO: Gimana kalo nanggung sizenya?
                         defaultAction = true;
                     }
                 }
             }
-            else if (self.TorpedoSalvoCount > 0 && self.size > 100){
+
+            if (self.TorpedoSalvoCount > 0 && self.size > 40){
                 if(!NavigationHandler.outsideBound(gameState, self)){
-                    System.out.println("Ship is big, firing missles nonetheless");
+                    Tester.appendFile("Ship is big, attacking nonetheless", "testlog.txt");
                     retval.assign(StateTypes.ATTACK_STATE);
-                    retval.assign(PlayerActions.STOP);
+                    fireTorpedoes(Tools.getHeadingBetween(playerList.get(1), self));
                     defaultAction = false;
                 }
             }
+             
         }
 
         if (defaultAction){
-            hoardingFood();
+            List<GameObject> supernovas = gameState.getGameObjects()
+                                            .stream().filter(item -> item.getGameObjectType() == ObjectTypes.SUPERNOVAPICKUP)
+                                            .sorted(Comparator
+                                                    .comparing(item -> Tools.getDistanceBetween(self, item)))
+                                            .collect(Collectors.toList());
+
+            Tester.appendFile("Supernova count: " + supernovas.size(), "testlog.txt");
+            if(!supernovas.isEmpty()){
+                if(Tools.getDistanceBetween(supernovas.get(0), self) < 300 && self.size > 80){
+                    retval.assign(Tools.getHeadingBetween(supernovas.get(0), self));
+                }
+
+                else{
+                    hoardingFood();
+                }
+            }
+
+            else{
+                hoardingFood();
+            }
         }
 
-        pathfindDef(retval.getHeading());
+        pathfind(retval.getHeading());
         return retval;
     }
 
     // Hoarding Food
     public static void hoardingFood(){
-        System.out.println("Hoarding food");
+        Tester.appendFile("Hoarding food", "testlog.txt");
         // Initialize Values
         List<GameObject> foodList;
         double foodThreshold, sizeSelf;
         int newHeading;
-        double xAwal, yAwal;
+        int xAwal, yAwal;
 
         sizeSelf = self.size.doubleValue();
         foodThreshold = 0.00;
@@ -86,25 +108,25 @@ public class DefaultState extends StateBase{
         // Make a cluster
         if(!foodList.isEmpty()){
             newHeading = Tools.getHeadingBetween(foodList.get(0), self);
-            xAwal = (double) (foodList.get(0).getPosition().x);
-            yAwal = (double) (foodList.get(0).getPosition().y);
+            xAwal = (foodList.get(0).getPosition().x);
+            yAwal = (foodList.get(0).getPosition().y);
             for (int i=1; i<foodList.size(); i++){
               if((Tools.getDistanceBetween(foodList.get(0), foodList.get(i))) <= (sizeSelf - foodThreshold)){
-                xAwal = (foodList.get(i).getPosition().x + (double) xAwal) / 2;
-                yAwal = (foodList.get(i).getPosition().y + (double) yAwal) / 2;
+                xAwal = (foodList.get(i).getPosition().x + xAwal) / 2;
+                yAwal = (foodList.get(i).getPosition().y + yAwal) / 2;
               } else {
                   break;
               }
           }
 
-          Position tujuan = new Position((int) xAwal, (int) yAwal);
+          Position tujuan = new Position(xAwal, yAwal);
           newHeading = Tools.getHeadingBetween(tujuan, self.getPosition());
 
           retval.assign(newHeading);
           retval.assign(StateTypes.DEFAULT_STATE);
         } 
         else{
-            retval.assign(Tools.getHeadingBetween(self.getPosition(), gameState.world.getCenterPoint()));
+            retval.assign(Tools.getHeadingBetween(gameState.world.getCenterPoint(), self.getPosition()));
         }
         retval.assign(PlayerActions.FORWARD);
     }
@@ -113,27 +135,5 @@ public class DefaultState extends StateBase{
     public static void findSupernova(){
         // can kepikiran carana kumaha tapi klo range <50 pasti kesana, dodge objects, ignore foods
         
-    }
-
-    //threshold kalo udah gede banget attack aja
-    public static void pathfindDef(int currentHeading){
-        List<GameObject> objectList;
-        objectList = gameState.getGameObjects()
-        .stream().filter(item -> item.getGameObjectType() == ObjectTypes.GAS_CLOUD || item.getGameObjectType() == ObjectTypes.WORMHOLE)
-        .sorted(Comparator
-                .comparing(item -> Tools.getDistanceBetween(self, item)))
-        .collect(Collectors.toList());;
-
-        if (NavigationHandler.outsideBound(gameState, self)){
-            retval.assign(NavigationHandler.dodgeEdge(self, gameState));
-        }
-        else{
-            if (RadarHandler.detectThreat(gameState, self, Radarsize - 70)){
-                retval.assign(NavigationHandler.dodgeEnemy());
-            }
-            retval.assign(NavigationHandler.dodgeObjects(currentHeading, gameState, self, objectList));
-            //retval.assign(NavigationHandler.dodgeObjects(currentHeading, gameState, self));
-            
-        }
     }
 }

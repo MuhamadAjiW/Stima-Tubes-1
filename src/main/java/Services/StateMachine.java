@@ -18,48 +18,54 @@ public class StateMachine{
 
     public void changeState(StateTypes NewState){
         CURRENTSTATE = NewState;
-        System.out.println("Change: " + CURRENTSTATE);
+        Tester.appendFile("Change: " + CURRENTSTATE, "testlog.txt");
     }
 
     public PlayerAction determineAction(GameState gameState, PlayerAction currentAction, GameObject self){
-        System.out.println("-------------------------------------------------------------");
-        System.out.println("Current Tick: " + gameState.world.currentTick);
-        System.out.println("Player Remaining: " + gameState.getPlayerGameObjects().size());
-        System.out.println("Size: " + self.getSize());
+        Tester.appendFile("-------------------------------------------------------------", "testlog.txt");
+        Tester.appendFile("Current Tick: " + gameState.world.currentTick, "testlog.txt");
+        Tester.appendFile("Player Remaining: " + gameState.getPlayerGameObjects().size(), "testlog.txt");
+        Tester.appendFile("Size: " + self.getSize(), "testlog.txt");
+        Tester.appendFile("Supernova in inventory: " + self.SupernovaAvailable, "testlog.txt");
         
         StateBase.updateState(gameState, self, currentAction);
-        response = DodgeState.detectTorpedoes();
-        changeState(response.getNewState());
+        
+        if(!AttackState.teleporterPrepped){
+            response = DodgeState.detectTorpedoes();
+            changeState(response.getNewState());
+        }
 
-        System.out.println("Switch Action: " + CURRENTSTATE.name());
+        Tester.appendFile("Switch Action: " + CURRENTSTATE.name(), "testlog.txt");
         switch (CURRENTSTATE) {
             case ATTACK_STATE:
-                Tester.appendFile("-------------------------------------------------------------", "attack.txt");
-                Tester.appendFile("Current Tick: " + gameState.world.currentTick, "attack.txt");
-                Tester.appendFile("Switch Action: " + CURRENTSTATE.name(), "attack.txt");
-                Tester.appendFile("Switch Action: " + CURRENTSTATE.name(), "attack.txt");
-                Tester.appendFile("ATTACK_STATE", "attack.txt");
-                System.out.println("Attack");
+                Tester.appendFile("Attack", "testlog.txt");
                 response = AttackState.runState();
                 break;
 
             case ESCAPE_STATE:
-                System.out.println("Escape");
+                Tester.appendFile("Escape", "testlog.txt");
                 response = EscapeState.runState();
                 break;
         
             case DODGE_STATE:
-                System.out.println("Dodge");
+                Tester.appendFile("Dodge", "testlog.txt");
                 response = DodgeState.runState();
                 break;
                 
             default:
-                System.out.println("Default");
+                Tester.appendFile("Default", "testlog.txt");
                 response = DefaultState.runState();
                 break;
         }
+        
         changeState(response.getNewState());
-        System.out.println("new state: " + response.getNewState());
+        if(AttackState.teleporterFired){
+            AttackState.detectTeleporter();
+        }
+        if(AttackState.supernovaFired){
+            AttackState.detectSupernova();
+        }
+        Tester.appendFile("new state: " + response.getNewState(), "testlog.txt");
         return response.getNewAction();
     }
 }
