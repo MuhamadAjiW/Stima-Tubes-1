@@ -11,6 +11,7 @@ import Models.GameObject;
 import Services.Common.Response;
 import Services.Common.Tools;
 import Services.Handlers.RadarHandler;
+import Services.Handlers.AttackHandler;
 
 public class EscapeState extends StateBase {
     public static Response runState(){
@@ -43,7 +44,7 @@ public class EscapeState extends StateBase {
                 System.out.println("Enemy distance: " + Tools.getDistanceBetween(self, playerList.get(1)));
                 System.out.println("Torpedo count: " + self.TorpedoSalvoCount);
                 if(self.TorpedoSalvoCount > 0 && self.size > 10){
-                    fireTorpedoes(enemyDirection);
+                    fireTorpedoes(AttackHandler.aimv1(self, playerList.get(1), 60));
                     defaultAction = false;
                 }
 

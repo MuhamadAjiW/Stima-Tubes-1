@@ -34,8 +34,8 @@ public class DodgeHandler {
             retval.y = -9999;
         }
         else{
-            retval.y = (int) (determinant * (c1*((-1)*m2) + c2*(m1)));
-            retval.x = (int) (determinant * (c1*(-1) + c2*1));
+            retval.y = (int) ((c1*((-1)*m2) + c2*(m1)) / determinant);
+            retval.x = (int) ((c1*(-1) + c2*1) / determinant);
         }
         return retval;
     }

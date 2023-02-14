@@ -5,6 +5,7 @@ import Models.GameObject;
 import Models.GameState;
 import Models.PlayerAction;
 import Services.Common.Response;
+import Services.Common.Tester;
 import Services.Handlers.NavigationHandler;
 import Services.Handlers.RadarHandler;
 
@@ -27,11 +28,17 @@ public class StateBase {
     //Generic Actions
     public static void pathfind(int currentHeading){
         if (NavigationHandler.outsideBound(gameState, self)){
+            if (retval.getNewAction().action == PlayerActions.FIRETORPEDOES) {
+                Tester.appendFile("gajadi tpd di ujung ring", "attack.txt");
+            }
             retval.assign(NavigationHandler.dodgeEdge(self, gameState));
             retval.assign(PlayerActions.FORWARD);
         }
         else{
             if (RadarHandler.detectThreat(gameState, self, Radarsize/2)){
+                if (retval.getNewAction().action == PlayerActions.FIRETORPEDOES) {
+                    Tester.appendFile("gajadi tpd di ujung ring", "attack.txt");
+                }
                 retval.assign(NavigationHandler.dodgeEnemy());
             }
 

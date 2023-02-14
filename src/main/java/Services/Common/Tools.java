@@ -57,4 +57,52 @@ public class Tools {
     public static Double getYbyDistance(int heading, Double distance, GameObject obj) {
         return ((Math.sin(heading) * distance) + obj.getPosition().y);
     }
+    
+    public static int valDeg(double rad) {
+        while (rad < 0) {
+            rad += 2 * Math.PI;
+        }
+        while (rad > 2 * Math.PI) {
+            rad -= 2 * Math.PI;
+        }
+        return toDegrees(rad);
+    }
+
+    public static int valDeg(int deg) {
+        while (deg < 0) {
+            deg += 360;
+        }
+        return deg % 360;
+    }
+
+    public static int kuadran(Position p) {
+        if (p.getX() > 0 && p.getY() > 0) {
+            return 1;
+        } else if (p.getX() < 0 && p.getY() > 0) {
+            return 2;
+        } else if (p.getX() < 0 && p.getY() < 0) {
+            return 3;
+        } else if (p.getX() > 0 && p.getY() < 0) {
+            return 4;
+        } else {
+            return -1; // di pusat/sumbu
+        }
+    }
+
+    public static int absDegDelta(int deg1, int deg2) {
+        int delta = Math.abs(deg1 - deg2);
+        if (delta > 180) {
+            if (deg1 > deg2) {
+                deg2 += 360;
+            } else {
+                deg1 += 360;
+            }
+            delta = Math.abs(deg1 - deg2);
+        }
+        return delta;
+    }
+
+    public static boolean isTegak(int deg) {
+        return deg == 0 || deg == 90 || deg == 180 || deg == 360;
+    }
 }

@@ -8,6 +8,7 @@ import Enums.ObjectTypes;
 import Enums.StateTypes;
 import Models.GameObject;
 import Models.GameState;
+import Models.Position;
 import Services.Common.Tools;
 
 public class NavigationHandler {
@@ -28,6 +29,18 @@ public class NavigationHandler {
         return out;
     }
 
+    public static boolean outsideBound(GameState gameState, Position toBe, GameObject obj){
+        boolean out;
+        double dst;
+        out = false;
+        dst = (gameState.world.radius - obj.getSize() - 20 - obj.getSpeed()) - Math.sqrt((toBe.x*toBe.x) + (toBe.y*toBe.y));
+        System.out.println("Distance to outer rings: " + dst);
+        if(dst < 0){
+            out = true;
+        }
+        return out;
+    }
+    
     public static int decideTurnDir(int currentHeading, GameObject obj, GameState gameState){
         int directionToCentre;
         int direction;

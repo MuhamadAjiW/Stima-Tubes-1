@@ -10,6 +10,7 @@ import Services.States.DefaultState;
 import Services.States.DodgeState;
 import Services.States.EscapeState;
 import Services.States.StateBase;
+import Services.Common.Tester;
 
 public class StateMachine{
     private static StateTypes CURRENTSTATE = StateTypes.DEFAULT_STATE;
@@ -33,6 +34,11 @@ public class StateMachine{
         System.out.println("Switch Action: " + CURRENTSTATE.name());
         switch (CURRENTSTATE) {
             case ATTACK_STATE:
+                Tester.appendFile("-------------------------------------------------------------", "attack.txt");
+                Tester.appendFile("Current Tick: " + gameState.world.currentTick, "attack.txt");
+                Tester.appendFile("Switch Action: " + CURRENTSTATE.name(), "attack.txt");
+                Tester.appendFile("Switch Action: " + CURRENTSTATE.name(), "attack.txt");
+                Tester.appendFile("ATTACK_STATE", "attack.txt");
                 System.out.println("Attack");
                 response = AttackState.runState();
                 break;

@@ -1,0 +1,984 @@
+-------------------------------------------------------------
+Current Tick: 202
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 1
+firing torpedoes to 98
+-------------------------------------------------------------
+Current Tick: 202
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 1
+firing torpedoes to 98
+-------------------------------------------------------------
+Current Tick: 203
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 203
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 204
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 205
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 1
+firing torpedoes to 99
+-------------------------------------------------------------
+Current Tick: 206
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 207
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 208
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 208
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 209
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 210
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 211
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 212
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 213
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 215
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 215
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 216
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 217
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 218
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 219
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 220
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 221
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 222
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 223
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 224
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 224
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 225
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 226
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 227
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 228
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 229
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 230
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 231
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 232
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 233
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 234
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 234
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 235
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 236
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 237
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 238
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 239
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 240
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 263
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+no torpedoes
+-------------------------------------------------------------
+Current Tick: 264
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+no torpedoes
+-------------------------------------------------------------
+Current Tick: 264
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+no torpedoes
+-------------------------------------------------------------
+Current Tick: 265
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+no torpedoes
+-------------------------------------------------------------
+Current Tick: 265
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+no torpedoes
+-------------------------------------------------------------
+Current Tick: 266
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+no torpedoes
+-------------------------------------------------------------
+Current Tick: 266
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+no torpedoes
+-------------------------------------------------------------
+Current Tick: 267
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+no torpedoes
+-------------------------------------------------------------
+Current Tick: 270
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 270
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 271
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 271
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 271
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 271
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 272
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 272
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 272
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 273
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 273
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 273
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 274
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 274
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 274
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 274
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 275
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 275
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 276
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 276
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 276
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 99
+-------------------------------------------------------------
+Current Tick: 277
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 98
+-------------------------------------------------------------
+Current Tick: 277
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 98
+-------------------------------------------------------------
+Current Tick: 277
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 98
+-------------------------------------------------------------
+Current Tick: 277
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 98
+-------------------------------------------------------------
+Current Tick: 278
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 279
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 280
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 280
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 281
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 1
+firing torpedoes to 99
+-------------------------------------------------------------
+Current Tick: 282
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 1
+no torpedoes
+-------------------------------------------------------------
+Current Tick: 290
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 291
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 300
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 303
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 104
+-------------------------------------------------------------
+Current Tick: 303
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 104
+-------------------------------------------------------------
+Current Tick: 304
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 104
+-------------------------------------------------------------
+Current Tick: 304
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 104
+-------------------------------------------------------------
+Current Tick: 304
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 104
+-------------------------------------------------------------
+Current Tick: 304
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 104
+-------------------------------------------------------------
+Current Tick: 305
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 105
+-------------------------------------------------------------
+Current Tick: 305
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 105
+-------------------------------------------------------------
+Current Tick: 305
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 105
+-------------------------------------------------------------
+Current Tick: 306
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 105
+-------------------------------------------------------------
+Current Tick: 306
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 105
+-------------------------------------------------------------
+Current Tick: 306
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 105
+-------------------------------------------------------------
+Current Tick: 307
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 333
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 108
+-------------------------------------------------------------
+Current Tick: 333
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 108
+-------------------------------------------------------------
+Current Tick: 334
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 108
+-------------------------------------------------------------
+Current Tick: 334
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 108
+-------------------------------------------------------------
+Current Tick: 334
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 108
+-------------------------------------------------------------
+Current Tick: 334
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 108
+-------------------------------------------------------------
+Current Tick: 335
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 108
+-------------------------------------------------------------
+Current Tick: 335
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 108
+-------------------------------------------------------------
+Current Tick: 335
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 108
+-------------------------------------------------------------
+Current Tick: 336
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 108
+-------------------------------------------------------------
+Current Tick: 336
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 108
+-------------------------------------------------------------
+Current Tick: 336
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 108
+-------------------------------------------------------------
+Current Tick: 337
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+-------------------------------------------------------------
+Current Tick: 355
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+no torpedoes
+-------------------------------------------------------------
+Current Tick: 356
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+no torpedoes
+-------------------------------------------------------------
+Current Tick: 362
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 362
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 363
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 363
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 363
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 364
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 364
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 364
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 365
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 365
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 365
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 365
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 366
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 366
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 366
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 367
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 367
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 367
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 368
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 112
+-------------------------------------------------------------
+Current Tick: 368
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 112
+-------------------------------------------------------------
+Current Tick: 368
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 112
+-------------------------------------------------------------
+Current Tick: 368
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 112
+-------------------------------------------------------------
+Current Tick: 369
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 112
+-------------------------------------------------------------
+Current Tick: 369
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 112
+-------------------------------------------------------------
+Current Tick: 369
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 112
+-------------------------------------------------------------
+Current Tick: 370
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 370
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 370
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+enemy range level 2
+firing torpedoes to aim1: 111
+-------------------------------------------------------------
+Current Tick: 371
+Switch Action: ATTACK_STATE
+Switch Action: ATTACK_STATE
+ATTACK_STATE
+bigger enemy
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
+gajadi tpd di ujung ring
