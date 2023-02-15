@@ -17,9 +17,10 @@ import Services.Handlers.NavigationHandler;
 public class DodgeState extends StateBase {
     public static boolean dodging = false;
     public static int cachedHeading;
+    public static int cachedDirection;
 
     public static Response runState(){
-        int temp;
+        
         boolean defaultAction;
         List<GameObject> torpedoList;
 
@@ -32,6 +33,10 @@ public class DodgeState extends StateBase {
 
 
         if(defaultAction){
+            NavigationHandler.dodging = false;
+
+            Tester.appendFile("Dodging state: " + dodging + " , Cached dir is " + cachedHeading, "testlog.txt");
+            Tester.appendFile("Criticality: " + DodgeHandler.critical, "testlog.txt");
             //TODO: IMPLEMENTASI DODGE STATE
             Tester.appendFile("Dodging torpedo", "testlog.txt");
             Tester.appendFile("Shield count: " + self.ShieldCount, "testlog.txt");
@@ -40,49 +45,55 @@ public class DodgeState extends StateBase {
                 Tester.appendFile("Shields deployed", "testlog.txt");
             }
             else{
-                if(!NavigationHandler.dodging){
-                    Tester.appendFile("Evasive Manoeuvre", "testlog.txt");
-                    temp = NavigationHandler.decideTurnDir(retval.getHeading(), self, gameState);
+                if(!NavigationHandler.outsideBound(gameState, self)){  
+                    if(!NavigationHandler.dodging){
                     
-                    if (!dodging){
-                        cachedHeading = retval.getHeading();
-                        if (temp == 1){
-                            Tester.appendFile("Heading right", "testlog.txt");
-                            retval.assign((cachedHeading + 300)%360);
+                        if (!dodging){
+                            Tester.appendFile("Evasive Manoeuvre starting", "testlog.txt");
+                            
+                            cachedDirection = NavigationHandler.decideTurnDir(retval.getHeading(), self, gameState);
+                            cachedHeading = retval.getHeading();
+                            if (cachedDirection == 1){
+                                Tester.appendFile("Heading right", "testlog.txt");
+                                retval.assign((cachedHeading + 300)%360);
+                            }
+                            else{
+                                Tester.appendFile("Heading left", "testlog.txt");
+                                retval.assign((cachedHeading + 60)%360);
+                            }
+                            dodging = true;
                         }
-                        else{
-                            Tester.appendFile("Heading left", "testlog.txt");
-                            retval.assign((cachedHeading + 60)%360);
-                        }
-                        dodging = true;
-                    }
 
-                    else{       
-                        Tester.appendFile("Evasive Manoeuvre Continuation", "testlog.txt");
-                        if (temp == 1){
-                            Tester.appendFile("Heading right", "testlog.txt");
-                            retval.assign((cachedHeading + 300)%360);
+                        else{       
+                            Tester.appendFile("Evasive Manoeuvre Continuation", "testlog.txt");
+                            if (cachedDirection == 1){
+                                Tester.appendFile("Heading right", "testlog.txt");
+                                retval.assign((cachedHeading + 300)%360);
+                            }
+                            else{
+                                Tester.appendFile("Heading left", "testlog.txt");
+                                retval.assign((cachedHeading + 60)%360);
+                            }    
                         }
-                        else{
-                            Tester.appendFile("Heading left", "testlog.txt");
-                            retval.assign((cachedHeading + 60)%360);
-                        }    
-                    }
-                    
-            
+                        
+                
 
-                    retval.assign(PlayerActions.FORWARD);
-                    if(!DodgeHandler.hit){
-                        retval.assign(StateTypes.DEFAULT_STATE);
-                        dodging = false;
+                        retval.assign(PlayerActions.FORWARD);
+                        if(!DodgeHandler.hit){
+                            retval.assign(StateTypes.DEFAULT_STATE);
+                            dodging = false;
+                        }
+                    }
+                    else{
+                        retval.assign(PlayerActions.FORWARD);
+                        if(!DodgeHandler.hit){
+                            retval.assign(StateTypes.DEFAULT_STATE);
+                            dodging = false;
+                        }
                     }
                 }
                 else{
                     retval.assign(PlayerActions.FORWARD);
-                    if(!DodgeHandler.hit){
-                        retval.assign(StateTypes.DEFAULT_STATE);
-                        dodging = false;
-                    }
                 }
             }
         }

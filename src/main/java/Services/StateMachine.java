@@ -11,6 +11,7 @@ import Services.States.DodgeState;
 import Services.States.EscapeState;
 import Services.States.StateBase;
 import Services.Common.Tester;
+import Services.Handlers.AttackHandler;
 
 public class StateMachine{
     private static StateTypes CURRENTSTATE = StateTypes.DEFAULT_STATE;
@@ -30,7 +31,8 @@ public class StateMachine{
         
         StateBase.updateState(gameState, self, currentAction);
         
-        if(!AttackState.teleporterPrepped){
+        Tester.appendFile("Teleporter ready: " + AttackHandler.teleporterPrepped, "testlog.txt");
+        if(!AttackHandler.teleporterPrepped){
             response = DodgeState.detectTorpedoes();
             changeState(response.getNewState());
         }
@@ -59,10 +61,10 @@ public class StateMachine{
         }
         
         changeState(response.getNewState());
-        if(AttackState.teleporterFired){
+        if(AttackHandler.teleporterFired){
             AttackState.detectTeleporter();
         }
-        if(AttackState.supernovaFired){
+        if(AttackHandler.supernovaFired){
             AttackState.detectSupernova();
         }
         Tester.appendFile("new state: " + response.getNewState(), "testlog.txt");

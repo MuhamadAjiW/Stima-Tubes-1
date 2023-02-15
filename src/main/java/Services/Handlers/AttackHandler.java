@@ -11,6 +11,12 @@ import Models.GameState;
 import Models.Position;
 
 public class AttackHandler {
+    public static boolean supernovaFired = false;
+    public static boolean supernovaEmpty = false;
+    public static boolean teleporterFired = false;
+    public static boolean teleporterPrepped = false;
+    public static boolean teleporterEmpty = false;
+    public static int teleporterdelay = 0;
     private static final double longRange = 200;
     private static final double midRange = 150;
     private static final double closeRange = 50;

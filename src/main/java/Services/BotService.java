@@ -35,10 +35,10 @@ public class BotService {
         this.playerAction.heading = direction;
     }
 
+    public static int cachedTick = 0;
     public void computeNextPlayerAction(PlayerAction playerAction) {
         StateMachine botState = new StateMachine();
-        int cachedTick = 0;
-
+        
         if (!gameState.getGameObjects().isEmpty()) { // kalo game belum beres
             if (cachedTick != gameState.world.currentTick){
                 playerAction = botState.determineAction(gameState, playerAction, bot);

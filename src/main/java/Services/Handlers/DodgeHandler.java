@@ -58,7 +58,7 @@ public class DodgeHandler {
             retval = -9999;
         }
 
-        return retval;
+        return retval - 1;
     }
 
     public static double closestDistance(Trajectory line1, Trajectory line2){
@@ -113,16 +113,17 @@ public class DodgeHandler {
                     if (time < ((bot.size+torpedoList.get(i).size)/torpedoTrajectory.vel) + 5  && time > 1){
                         cluster = 0;
                         for(int j = 0; j < torpedoList.size(); j++){
-                            if (Tools.getDistanceBetween(torpedoList.get(i), torpedoList.get(j)) < 40){
+                            if (Tools.getDistanceBetween(torpedoList.get(i), torpedoList.get(j)) < 60){
+                                Tester.appendFile("Distance with other torpedo: " + Tools.getDistanceBetween(torpedoList.get(i), torpedoList.get(j)), "testlog.txt");
                                 cluster++;
                             }
                         }
 
                         if(cluster > 2){
+                            Tester.appendFile("Critical!", "testlog.txt");
                             critical = true;
                         }
-
-                        Tester.appendFile("Critical!", "testlog.txt");
+                        
                     }
 
                     Tester.appendFile("Hit!", "testlog.txt");
