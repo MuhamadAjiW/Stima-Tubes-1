@@ -4,11 +4,13 @@ import java.util.List;
 
 import Models.GameObject;
 import Models.Position;
+import Services.Common.Tester;
 import Services.Common.Tools;
 import Services.Common.Trajectory;
 
 public class DodgeHandler {
     public static boolean critical = false;
+    public static boolean hit = false;
 
     public static Position intercept(Trajectory line1,Trajectory line2){
         Position retval = new Position();
@@ -42,31 +44,21 @@ public class DodgeHandler {
 
     public static int timeToIntercept(Trajectory line1,Trajectory line2){
         int retval;
-        Position target;
 
         retval = 0;
-        target = intercept(line1, line2);
-        if (target.x == -9999 && target.y == -9999){
+        double targetDst = (Tools.getDistanceBetween(line1.init, line2.init));
+        double cachedDst = 0;
+        do{
+            retval++;
+            cachedDst = targetDst;
+            targetDst = Tools.getDistanceBetween(line1.interpolate(retval), line2.interpolate(retval));
+    
+        } while (cachedDst > targetDst);
+        if (retval < 2){
             retval = -9999;
         }
-        else{
-            double targetDst = Math.min(Tools.getDistanceBetween(line1.init, target), Tools.getDistanceBetween(line2.init, target));
-            double cachedDst = 0;
 
-            if (!(targetDst < 1 && targetDst > -1)){
-                do{
-                    retval++;
-                    cachedDst = targetDst;
-                    targetDst = Tools.getDistanceBetween(line1.interpolate(retval), line2.interpolate(retval));
-        
-                } while (cachedDst > targetDst && !(targetDst < 1 && targetDst > -1));
-            }
-            if (retval < 4){
-                retval = -9999;
-            }
-        }
-
-        return retval;
+        return retval - 1;
     }
 
     public static double closestDistance(Trajectory line1, Trajectory line2){
@@ -100,8 +92,8 @@ public class DodgeHandler {
         double closestDistance;
         Trajectory botTrajectory;
         Trajectory torpedoTrajectory;
-        boolean hit;
         int time;
+        int cluster;
         int i;
 
         hit = false;
@@ -114,15 +106,27 @@ public class DodgeHandler {
             time = timeToIntercept(botTrajectory, torpedoTrajectory);
             closestDistance = distanceAfterTime(botTrajectory, torpedoTrajectory, time);
             
-            System.out.println("Closest interpolated distance to torpedo: " + closestDistance);
+            Tester.appendFile("Closest interpolated distance to torpedo: " + closestDistance, "testlog.txt");
             if(closestDistance != -9999){
                 if(closestDistance < bot.size + torpedoList.get(i).size - 5){
-                 
-                    if (time < ((bot.size+torpedoList.get(i).size)/torpedoTrajectory.vel) + 5  && time > 3){
-                        critical = true;
+                    
+                    if (time < ((bot.size+torpedoList.get(i).size)/torpedoTrajectory.vel) + 5  && time > 1){
+                        cluster = 0;
+                        for(int j = 0; j < torpedoList.size(); j++){
+                            if (Tools.getDistanceBetween(torpedoList.get(i), torpedoList.get(j)) < 60){
+                                Tester.appendFile("Distance with other torpedo: " + Tools.getDistanceBetween(torpedoList.get(i), torpedoList.get(j)), "testlog.txt");
+                                cluster++;
+                            }
+                        }
+
+                        if(cluster > 2){
+                            Tester.appendFile("Critical!", "testlog.txt");
+                            critical = true;
+                        }
+                        
                     }
 
-                    System.out.println("Hit!");
+                    Tester.appendFile("Hit!", "testlog.txt");
                     hit = true;
                 }
                 else{

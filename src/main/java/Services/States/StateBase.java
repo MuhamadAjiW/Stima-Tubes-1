@@ -1,11 +1,17 @@
 package Services.States;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import Enums.ObjectTypes;
 import Enums.PlayerActions;
 import Models.GameObject;
 import Models.GameState;
 import Models.PlayerAction;
 import Services.Common.Response;
-import Services.Common.Tester;
+import Services.Common.Tools;
+import Services.Handlers.AttackHandler;
 import Services.Handlers.NavigationHandler;
 import Services.Handlers.RadarHandler;
 
@@ -27,23 +33,27 @@ public class StateBase {
 
     //Generic Actions
     public static void pathfind(int currentHeading){
-        if (NavigationHandler.outsideBound(gameState, self)){
-            if (retval.getNewAction().action == PlayerActions.FIRETORPEDOES) {
-                Tester.appendFile("gajadi tpd di ujung ring", "attack.txt");
+        if(!AttackHandler.teleporterPrepped){
+            if (NavigationHandler.outsideBound(gameState, self)){
+                retval.assign(NavigationHandler.dodgeEdge(self, gameState));
+                retval.assign(PlayerActions.FORWARD);
             }
-            retval.assign(NavigationHandler.dodgeEdge(self, gameState));
-            retval.assign(PlayerActions.FORWARD);
-        }
-        else{
-            if (RadarHandler.detectThreat(gameState, self, Radarsize/2)){
-                if (retval.getNewAction().action == PlayerActions.FIRETORPEDOES) {
-                    Tester.appendFile("gajadi tpd di ujung ring", "attack.txt");
+            else{
+                if (RadarHandler.detectThreat(gameState, self, Radarsize/2)){
+                    retval.assign(NavigationHandler.dodgeEnemy());
                 }
-                retval.assign(NavigationHandler.dodgeEnemy());
-            }
-
-            if (retval.getNewAction().action != PlayerActions.FIRETORPEDOES){
-                retval.assign(NavigationHandler.dodgeGas(currentHeading, gameState, self));
+    
+                if (retval.getNewAction().action != PlayerActions.FIRETORPEDOES){
+                    List<GameObject> objectList;
+                    objectList = gameState.getGameObjects()
+                            .stream().filter(item -> item.getGameObjectType() == ObjectTypes.GAS_CLOUD || item.getGameObjectType() == ObjectTypes.WORMHOLE)
+                            .sorted(Comparator
+                                    .comparing(item -> Tools.getDistanceBetween(self, item)))
+                            .collect(Collectors.toList());
+    
+    
+                    retval.assign(NavigationHandler.dodgeObjects(currentHeading, gameState, self, objectList));
+                }
             }
         }
     }

@@ -9,6 +9,7 @@ import Enums.PlayerActions;
 import Enums.StateTypes;
 import Models.GameObject;
 import Services.Common.Response;
+import Services.Common.Tester;
 import Services.Common.Tools;
 import Services.Handlers.RadarHandler;
 import Services.Handlers.AttackHandler;
@@ -29,21 +30,21 @@ public class EscapeState extends StateBase {
             enemyDirection = Tools.getHeadingBetween(playerList.get(1), self);
 
             if (!RadarHandler.detectEnemy(playerList.get(1), self, Radarsize)){
-                System.out.println("Enemy out of sight");
+                Tester.appendFile("Enemy out of sight", "testlog.txt");
                 retval.assign(StateTypes.DEFAULT_STATE);
-                retval.assign(PlayerActions.STOP);
+                retval.assign(PlayerActions.FORWARD);
                 defaultAction = false;
             }
             else if(RadarHandler.isSmall(playerList.get(1), self.size.doubleValue() )){
-                System.out.println("Smaller enemy detected");
+                Tester.appendFile("Smaller enemy detected", "testlog.txt");
                 retval.assign(StateTypes.ATTACK_STATE);
-                retval.assign(PlayerActions.STOP);
+                retval.assign(PlayerActions.FORWARD);
                 defaultAction = false;
             }
             else{
-                System.out.println("Enemy distance: " + Tools.getDistanceBetween(self, playerList.get(1)));
-                System.out.println("Torpedo count: " + self.TorpedoSalvoCount);
-                if(self.TorpedoSalvoCount > 0 && self.size > 10){
+                Tester.appendFile("Enemy distance: " + Tools.getDistanceBetween(self, playerList.get(1)), "testlog.txt");
+                Tester.appendFile("Torpedo count: " + self.TorpedoSalvoCount, "testlog.txt");
+                if(self.TorpedoSalvoCount > 0 && self.size > 30){
                     fireTorpedoes(AttackHandler.aimv1(self, playerList.get(1), 60));
                     defaultAction = false;
                 }
@@ -59,7 +60,7 @@ public class EscapeState extends StateBase {
 
     //Sub Actions
     public static void defaultAction(int enemyDirection){
-        System.out.println("Escaping enemy");
+        Tester.appendFile("Escaping enemy", "testlog.txt");
         List<GameObject> foodList;
         boolean notfoundFood;
         int i;
@@ -77,8 +78,8 @@ public class EscapeState extends StateBase {
                 int closestFoodDirection;
                 closestFoodDirection = Tools.getHeadingBetween(foodList.get(i), self);
                 if(Tools.aroundDegrees(closestFoodDirection, (enemyDirection + 180)%360, 20)){
-                    System.out.println("Running while fetching food");
-                    System.out.println("Enemy direction is: " + enemyDirection + ", food direction is: " + closestFoodDirection);
+                    Tester.appendFile("Running while fetching food", "testlog.txt");
+                    Tester.appendFile("Enemy direction is: " + enemyDirection + ", food direction is: " + closestFoodDirection, "testlog.txt");
                     notfoundFood = false;
                     retval.assign(closestFoodDirection);
                     break;
@@ -90,7 +91,7 @@ public class EscapeState extends StateBase {
         }
         
         if (notfoundFood){
-            System.out.println("Just running");
+            Tester.appendFile("Just running", "testlog.txt");
             retval.assign((enemyDirection + 180)%360);
         }
         retval.assign(PlayerActions.FORWARD);

@@ -11,6 +11,12 @@ import Models.GameState;
 import Models.Position;
 
 public class AttackHandler {
+    public static boolean supernovaFired = false;
+    public static boolean supernovaEmpty = false;
+    public static boolean teleporterFired = false;
+    public static boolean teleporterPrepped = false;
+    public static boolean teleporterEmpty = false;
+    public static int teleporterdelay = 0;
     private static final double longRange = 200;
     private static final double midRange = 150;
     private static final double closeRange = 50;
@@ -85,10 +91,8 @@ public class AttackHandler {
             c2 = self.getPosition().getY() - m2 * self.getPosition().getX();
             double det = m1 - m2;
             if (det == 0) {
-                System.out.println("sejajar");
                 tempHeading = -9999; // MARK
             } else {
-                System.out.println("miring");
                 yIn = (int) ((c2 * m1 - c1 * m2) / det);
                 xIn = (int) ((c2 - c1) / det);
                 intercept.setX(xIn);
@@ -96,11 +100,9 @@ public class AttackHandler {
             }
         } else {
             if (enemy.getPosition().getY() == 0) {
-                System.out.println("sejajar sb x");
                 intercept.setX(self.getPosition().getX());
                 intercept.setY(0);
             } else {
-                System.out.println("sejajar sb y");
                 intercept.setX(0);
                 intercept.setY(self.getPosition().getY());
             }
