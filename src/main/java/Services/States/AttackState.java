@@ -151,7 +151,7 @@ public class AttackState extends StateBase {
                             AttackHandler.teleporterPrepped = true;
                             defaultAction = false;
                         }
-                        else if (self.TorpedoSalvoCount > 0) {
+                        else if (self.TorpedoSalvoCount > 0 && self.size > 50) {
                             aim1 = AttackHandler.aimv1(self,nearestEnemy,20);
                             aim2 = AttackHandler.aimv2(self,nearestEnemy);
                             aim3 = AttackHandler.aimv3(self,nearestEnemy, nearestGasCloud);
@@ -254,7 +254,7 @@ public class AttackState extends StateBase {
 
         if(!supernova.isEmpty()){
             for(int i = 1; i < playerList.size(); i++){
-                if(Tools.getDistanceBetween(supernova.get(0), playerList.get(i)) < 300 && Tools.getDistanceBetween(supernova.get(0), self) + self.size > 100){
+                if(Tools.getDistanceBetween(supernova.get(0), playerList.get(i)) < 300 && Tools.getDistanceBetween(supernova.get(0), self) + self.size > 300){
                     Tester.appendFile("Detonating supernova", "testlog.txt");
                     retval.assign(PlayerActions.DETONATESUPERNOVA);
                     AttackHandler.supernovaFired = false;

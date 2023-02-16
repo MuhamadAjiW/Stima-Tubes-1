@@ -31,7 +31,7 @@ public class DodgeState extends StateBase {
                     .collect(Collectors.toList());
 
         Tester.appendFile("Hitstate: " + DodgeHandler.hit, "testlog.txt");
-        if(!DodgeHandler.hit){
+        if(!DodgeHandler.hit && self.size > 100){
             retval.assign(StateTypes.DEFAULT_STATE);
             retval.assign(PlayerActions.FORWARD);
             DodgeHandler.dodging = false;
@@ -59,11 +59,11 @@ public class DodgeState extends StateBase {
                             cachedHeading = retval.getHeading();
                             if (cachedDirection == 1){
                                 Tester.appendFile("Heading right", "testlog.txt");
-                                retval.assign((cachedHeading + 60)%360);
+                                retval.assign((cachedHeading + 300)%360);
                             }
                             else{
                                 Tester.appendFile("Heading left", "testlog.txt");
-                                retval.assign((cachedHeading + 300)%360);
+                                retval.assign((cachedHeading + 60)%360);
                             }
                             DodgeHandler.dodging = true;
                         }
@@ -72,11 +72,11 @@ public class DodgeState extends StateBase {
                             Tester.appendFile("Evasive Manoeuvre Continuation", "testlog.txt");
                             if (cachedDirection == 1){
                                 Tester.appendFile("Heading right", "testlog.txt");
-                                retval.assign((cachedHeading + 60)%360);
+                                retval.assign((cachedHeading + 300)%360);
                             }
                             else{
                                 Tester.appendFile("Heading left", "testlog.txt");
-                                retval.assign((cachedHeading + 300)%360);
+                                retval.assign((cachedHeading + 60)%360);
                             }    
                         }
 

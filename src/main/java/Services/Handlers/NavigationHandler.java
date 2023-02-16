@@ -15,7 +15,7 @@ import Services.Common.Tools;
 public class NavigationHandler {
     public static boolean dodging = false;
     private static int cachedHeading;
-    private static int temp;
+    private static int cachedDirection;
     private static GameObject cachedObject;
 
     public static boolean outsideBound(GameState gameState, GameObject obj){
@@ -112,9 +112,9 @@ public class NavigationHandler {
                         Tester.appendFile("Dodging Gas Clouds", "testlog.txt");
                         cachedObject = objectList.get(i);
                         
-                        temp = NavigationHandler.decideTurnDir(currentHeading, self, gameState);
+                        cachedDirection = NavigationHandler.decideTurnDir(currentHeading, self, gameState);
         
-                        if (temp == 1){
+                        if (cachedDirection == 1){
                             Tester.appendFile("Heading right", "testlog.txt");
                             newHeading = (Tools.getHeadingBetween(objectList.get(i), self) + 270) % 360;
                         }
@@ -134,7 +134,7 @@ public class NavigationHandler {
             else if (dodging){
                 Tester.appendFile("Dodging Gas Clouds as Before", "testlog.txt");
     
-                if (temp == 1){
+                if (cachedDirection == 1){
                     Tester.appendFile("Heading right", "testlog.txt");
                     newHeading = (Tools.getHeadingBetween(objectList.get(i), self) + 270) % 360;
                 }
@@ -149,7 +149,7 @@ public class NavigationHandler {
                             Tester.appendFile("Different Object found", "testlog.txt");
                             cachedObject = objectList.get(i);
     
-                            if (temp == 1){
+                            if (cachedDirection == 1){
                                 Tester.appendFile("Heading right", "testlog.txt");
                                 newHeading = (Tools.getHeadingBetween(objectList.get(i), self) + 270) % 360;
                             }
@@ -190,7 +190,7 @@ public class NavigationHandler {
                 }
 
 
-                if (temp == 1){
+                if (cachedDirection == 1){
                     if (Tools.aroundDegrees(currentHeading, (cachedHeading + 270)%360, 5)){
                         dodging = false;
                     }
@@ -209,15 +209,15 @@ public class NavigationHandler {
     public static int dodgeEdge(GameObject bot, GameState gameState){
         Tester.appendFile("Dodging Edge of map", "testlog.txt");
     
+        
         // Inisialisasi
-        /*
+        
         int newHeading;
-        int heading;
+        GameObject nearestEnemy;
         List<GameObject> gasList;
         List<GameObject> playerList;
 
-        heading = bot.currentHeading;
-        newHeading = heading;
+        newHeading = Tools.getHeadingBetween(gameState.world.getCenterPoint(), bot.position);
         gasList = gameState.getGameObjects()
                             .stream().filter(item -> item.getGameObjectType() == ObjectTypes.GAS_CLOUD)
                             .sorted(Comparator
@@ -226,36 +226,51 @@ public class NavigationHandler {
         playerList = gameState.getPlayerGameObjects().stream()
                     .sorted(Comparator.comparing(item -> Tools.getDistanceBetween(bot, item)))
                     .collect(Collectors.toList());
+        nearestEnemy = playerList.get(0);
         
         // Dodge Gas
         if (!gasList.isEmpty() || !playerList.isEmpty()){
             if (RadarHandler.isBig(playerList.get(1), bot.size.doubleValue())){
+
+                
                 if (Tools.getDistanceBetween(bot, playerList.get(1)) > Tools.getDistanceBetween(bot, gasList.get(1))){
-                    System.out.println("Gas is closer than enemy.");
-                    Tester.appendFile("In pursuit", "testlog.txt");
-                    if(decideTurnDir(heading, bot, gasList.get(0))){
-                        System.out.println("Gas is Detected on your right, Moving Left!");
-                        Tester.appendFile("In pursuit", "testlog.txt");
-                        newHeading = (heading + 90) % 360;
+                    Tester.appendFile("Gas is closer than enemy.", "testlog.txt");
+                    if(decideTurnDir(newHeading, bot, gasList.get(0))){
+                        Tester.appendFile("Gas is Detected on your right, Moving Left", "testlog.txt");
+                        newHeading = (newHeading + 15) % 360;
                     } else { 
-                        System.out.println("Gas is Detected on your left, Moving Right!");
-                        Tester.appendFile("In pursuit", "testlog.txt");
-                        newHeading = (heading - 90) % 360; }
+                        Tester.appendFile("Gas is Detected on your left, Moving Right", "testlog.txt");
+                        newHeading = (newHeading + 345) % 360; }
                 } else {
                     System.out.println("Enemy is closer than gas.");
-                    if(decideTurnDir(heading, bot, playerList.get(1))){
-                        System.out.println("Enemy is Detected on your right, Moving Left!");
-                        Tester.appendFile("In pursuit", "testlog.txt");
-                        newHeading = (heading + 90) % 360;
-                    } else { 
-                        System.out.println("Enemy is Detected on your left, Moving Right!");
-                        Tester.appendFile("In pursuit", "testlog.txt");
-                        newHeading = (heading - 90) % 360; }
+                    
+                    if(RadarHandler.isBig(nearestEnemy, bot.size.doubleValue() )){
+                        if(decideTurnDir(newHeading, bot, nearestEnemy)){
+                            Tester.appendFile("Big enemy is Detected on your right, Moving Left", "testlog.txt");
+                            newHeading = (newHeading + 15) % 360;
+                        } else {
+                            Tester.appendFile("Big enemy is Detected on your left, Moving Right", "testlog.txt");
+                            newHeading = (newHeading + 345) % 360; }
+                    }
+                    else{
+                        if(decideTurnDir(newHeading, bot, nearestEnemy)){
+                            Tester.appendFile("Small enemy is Detected on your right, Moving right", "testlog.txt");
+                            newHeading = (newHeading + 345) % 360;
+                        } else {
+                            Tester.appendFile("Small enemy is Detected on your left, Moving left", "testlog.txt");
+                            newHeading = (newHeading + 15) % 360; }
+                    }
                 } 
+
+
+
+
             }   
         }
-         */
+                 
 
-        return Tools.getHeadingBetween(gameState.world.getCenterPoint(), bot.position);
+        return newHeading;
+        
+        //return (Tools.getHeadingBetween(gameState.world.getCenterPoint(), bot.position) + 20)%360;
     }
 }
