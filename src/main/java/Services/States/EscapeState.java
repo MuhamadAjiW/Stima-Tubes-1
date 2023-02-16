@@ -44,8 +44,8 @@ public class EscapeState extends StateBase {
             else{
                 Tester.appendFile("Enemy distance: " + Tools.getDistanceBetween(self, playerList.get(1)), "testlog.txt");
                 Tester.appendFile("Torpedo count: " + self.TorpedoSalvoCount, "testlog.txt");
-                if(self.TorpedoSalvoCount > 0 && self.size > 30){
-                    fireTorpedoes(AttackHandler.aimv1(self, playerList.get(1), 60));
+                if(self.TorpedoSalvoCount > 0 && self.size > 10){
+                    fireTorpedoes(AttackHandler.aimv1(self, playerList.get(1), 20));
                     defaultAction = false;
                 }
 

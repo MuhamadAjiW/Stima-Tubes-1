@@ -9,6 +9,7 @@ import Services.Common.Tools;
 import Services.Common.Trajectory;
 
 public class DodgeHandler {
+    public static boolean dodging = false;
     public static boolean critical = false;
     public static boolean hit = false;
 
@@ -110,7 +111,7 @@ public class DodgeHandler {
             if(closestDistance != -9999){
                 if(closestDistance < bot.size + torpedoList.get(i).size - 5){
                     
-                    if (time < ((bot.size+torpedoList.get(i).size)/torpedoTrajectory.vel) + 5  && time > 1){
+                    if (time < ((bot.size+torpedoList.get(i).size)/torpedoTrajectory.vel) + 3  && time > 1){
                         cluster = 0;
                         for(int j = 0; j < torpedoList.size(); j++){
                             if (Tools.getDistanceBetween(torpedoList.get(i), torpedoList.get(j)) < 60){
