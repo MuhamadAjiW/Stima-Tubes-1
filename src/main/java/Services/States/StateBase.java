@@ -34,7 +34,7 @@ public class StateBase {
     //Generic Actions
     public static void pathfind(int currentHeading){
         if(!AttackHandler.teleporterPrepped){
-            if (NavigationHandler.outsideBound(gameState, self)){
+            if (NavigationHandler.outsideBound(gameState, self) && retval.getNewAction().action != PlayerActions.FIRETELEPORT){
                 retval.assign(NavigationHandler.dodgeEdge(self, gameState));
                 retval.assign(PlayerActions.FORWARD);
             }

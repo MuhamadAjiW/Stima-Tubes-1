@@ -182,7 +182,8 @@ public class NavigationHandler {
                     int objectDirection;
                     foodDirection = Tools.getHeadingBetween(foodlist.get(0), self);
                     objectDirection = Tools.getHeadingBetween(cachedObject, self);
-                    if(Tools.aroundDegrees(foodDirection, (objectDirection + 180)%360, 45)){
+                    Tester.appendFile("Food Heading: " + foodDirection, "testlog.txt");
+                    if(Tools.aroundDegrees(foodDirection, (objectDirection + 180)%360, 60)){
                         newHeading = foodDirection;
                         dodging = false;
                     }

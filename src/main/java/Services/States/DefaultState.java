@@ -29,7 +29,15 @@ public class DefaultState extends StateBase{
 
         if (!playerList.isEmpty()){
             nearestEnemy = playerList.get(1);
-            if (RadarHandler.detectEnemy(nearestEnemy, self, Radarsize)){
+            if(self.SupernovaAvailable > 0){
+                retval.assign(StateTypes.ATTACK_STATE);
+                retval.assign(PlayerActions.FIRESUPERNOVA);
+                retval.assign(AttackHandler.aimv1(self, nearestEnemy, 20));
+                AttackHandler.supernovaFired = true;
+                Tester.appendFile("firing supernova randomly", "testlog.txt");
+                defaultAction = false;
+            }
+            else if (RadarHandler.detectEnemy(nearestEnemy, self, Radarsize)){
                 Tester.appendFile("Enemy within radar", "testlog.txt");
                 if(RadarHandler.isBig(nearestEnemy, self.size.doubleValue() )){
                     Tester.appendFile("Enemy is big, size: " + nearestEnemy.size, "testlog.txt");
@@ -55,10 +63,10 @@ public class DefaultState extends StateBase{
                 }
             }
 
-            if (self.size > 40){
+            if (self.size > 50){
                 if(!NavigationHandler.outsideBound(gameState, self)){
-                    Tester.appendFile("Ship is big, attacking nonetheless", "testlog.txt");
                     if(self.size - 30 > nearestEnemy.size && self.TeleporterCount > 0 && !AttackHandler.teleporterFired){
+                        Tester.appendFile("Ship is big, attacking nonetheless", "testlog.txt");
                         Tester.appendFile("Prepping teleporter", "testlog.txt");
                         retval.assign(PlayerActions.FORWARD);
                         retval.assign(StateTypes.ATTACK_STATE);
@@ -66,23 +74,18 @@ public class DefaultState extends StateBase{
                         AttackHandler.teleporterPrepped = true;
                         defaultAction = false;
                     }
-                    else if (self.TorpedoSalvoCount > 0){
+                    
+                    else if (self.TorpedoSalvoCount > 0 && !AttackHandler.teleporterFired){
+                        Tester.appendFile("Ship is big, attacking nonetheless", "testlog.txt");
                         retval.assign(StateTypes.ATTACK_STATE);
                         fireTorpedoes(AttackHandler.aimv1(self, nearestEnemy, 20));
                         defaultAction = false;
                         AttackHandler.teleporterPrepped = false;
+                        AttackHandler.teleporterdelay = 0;
                     }
+                     
                 }
             }
-            else if(self.SupernovaAvailable > 0){
-                retval.assign(StateTypes.ATTACK_STATE);
-                retval.assign(PlayerActions.FIRESUPERNOVA);
-                retval.assign(AttackHandler.aimv1(self, nearestEnemy, 20));
-                AttackHandler.supernovaFired = true;
-                Tester.appendFile("firing supernova randomly", "testlog.txt");
-                defaultAction = false;
-            }
-             
         }
 
         if (defaultAction){
