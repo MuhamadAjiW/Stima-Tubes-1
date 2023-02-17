@@ -30,6 +30,7 @@ public class StateMachine{
         Tester.appendFile("Supernova in inventory: " + self.SupernovaAvailable, "testlog.txt");
         
         StateBase.updateState(gameState, self, currentAction);
+        AttackHandler.detectState(gameState);
         
         Tester.appendFile("Teleporter ready: " + AttackHandler.teleporterPrepped, "testlog.txt");
         if(!AttackHandler.teleporterPrepped){

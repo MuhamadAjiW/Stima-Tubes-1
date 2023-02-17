@@ -21,14 +21,8 @@ public class DodgeState extends StateBase {
     public static Response runState(){
         
         boolean defaultAction;
-        List<GameObject> torpedoList;
 
         defaultAction = true;
-        torpedoList = gameState.getGameObjects()
-                    .stream().filter(item -> item.getGameObjectType() == ObjectTypes.TORPEDOSALVO)
-                    .sorted(Comparator
-                            .comparing(item -> Tools.getDistanceBetween(self, item)))
-                    .collect(Collectors.toList());
 
         Tester.appendFile("Hitstate: " + DodgeHandler.hit, "testlog.txt");
         if(!DodgeHandler.hit && self.size > 100){
@@ -44,7 +38,7 @@ public class DodgeState extends StateBase {
             //TODO: IMPLEMENTASI DODGE STATE
             Tester.appendFile("Dodging torpedo", "testlog.txt");
             Tester.appendFile("Shield count: " + self.ShieldCount, "testlog.txt");
-            if(DodgeHandler.critical && self.ShieldCount > 0 && self.size > 25 && torpedoList.size() > 2){
+            if(DodgeHandler.critical && self.ShieldCount > 0 && self.size > 25){
                 retval.assign(PlayerActions.ACTIVATESHIELD);
                 Tester.appendFile("Shields deployed", "testlog.txt");
             }
@@ -113,7 +107,7 @@ public class DodgeState extends StateBase {
         if(self.size > 100){
             if (DodgeHandler.inTrajectory(self, torpedoList)){
                 Tester.appendFile("Big and in a torpedo trajectory", "testlog.txt");
-                if(DodgeHandler.critical && self.ShieldCount > 0 && self.size > 25 && torpedoList.size() > 2){
+                if(DodgeHandler.critical && self.ShieldCount > 0){
                     retval.assign(StateTypes.DODGE_STATE);
                 }
                 else{

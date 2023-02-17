@@ -28,8 +28,6 @@ public class AttackState extends StateBase {
 
         List<GameObject> playerList;
         List<GameObject> gasList;
-        List<GameObject> teleporterList;
-        List<GameObject> supernovaList;
 
         defaultAction = true;
         playerList = gameState.getPlayerGameObjects().stream()
@@ -51,31 +49,11 @@ public class AttackState extends StateBase {
                 nearestGasCloud = nearestEnemy;
             }
 
-            if (AttackHandler.teleporterEmpty){
-                teleporterList = gameState.getGameObjects()
-                                .stream().filter(item -> item.getGameObjectType() == ObjectTypes.TELEPORTER)
-                                .collect(Collectors.toList());
-
-                if (teleporterList.isEmpty()){
-                    AttackHandler.teleporterdelay = 0;
-                    AttackHandler.teleporterFired = false;
-                    AttackHandler.teleporterEmpty = false;
-                }
-            }
-            if (AttackHandler.supernovaEmpty){
-                supernovaList = gameState.getGameObjects()
-                                .stream().filter(item -> item.getGameObjectType() == ObjectTypes.SUPERNOVABOMB)
-                                .collect(Collectors.toList());
-
-                if(supernovaList.isEmpty()){
-                    AttackHandler.teleporterdelay = 0;
-                    AttackHandler.supernovaFired = false;
-                    AttackHandler.supernovaEmpty = false;
-                }
-            }
+            aim0 = AttackHandler.aimv0(self, nearestEnemy);
             if (AttackHandler.teleporterPrepped){
                 Tester.appendFile("Firing teleporter", "testlog.txt");
                 retval.assign(StateTypes.ATTACK_STATE);
+                retval.assign(AttackHandler.aimv1(self, nearestEnemy, 20));
                 retval.assign(PlayerActions.FIRETELEPORT);
                 AttackHandler.teleporterdelay = 0;
                 AttackHandler.teleporterFired = true;
@@ -83,8 +61,7 @@ public class AttackState extends StateBase {
                 defaultAction = false;
             }
 
-            aim0 = AttackHandler.aimv0(self, nearestEnemy);
-            if (Tools.getDistanceBetween(self, nearestEnemy) > 300){
+            else if (Tools.getDistanceBetween(self, nearestEnemy) > 300){
                 retval.assign(StateTypes.DEFAULT_STATE);
                 retval.assign(PlayerActions.FORWARD);
             }
@@ -122,7 +99,7 @@ public class AttackState extends StateBase {
                             AttackHandler.teleporterPrepped = true;
                             defaultAction = false;
                         }
-                        else if (self.TorpedoSalvoCount > 0 && self.size > 50) {
+                        else if (self.TorpedoSalvoCount > 0 && self.size > 40) {
                             Tester.appendFile("firing torpedoes to " + Integer.toString(AttackHandler.aimv1(self, nearestEnemy, 20)), "testlog.txt");
                             fireTorpedoes(AttackHandler.aimv1(self, nearestEnemy, 20));
                             retval.assign(StateTypes.ATTACK_STATE);
@@ -151,7 +128,7 @@ public class AttackState extends StateBase {
                             AttackHandler.teleporterPrepped = true;
                             defaultAction = false;
                         }
-                        else if (self.TorpedoSalvoCount > 0 && self.size > 50) {
+                        else if (self.TorpedoSalvoCount > 0 && self.size > 40) {
                             aim1 = AttackHandler.aimv1(self,nearestEnemy,20);
                             aim2 = AttackHandler.aimv2(self,nearestEnemy);
                             aim3 = AttackHandler.aimv3(self,nearestEnemy, nearestGasCloud);
@@ -188,7 +165,7 @@ public class AttackState extends StateBase {
                             AttackHandler.teleporterPrepped = true;
                             defaultAction = false;
                         }
-                        else if (self.TorpedoSalvoCount > 0  && self.size > 50  && !enemyEffect.isShield()) {
+                        else if (self.TorpedoSalvoCount > 0  && self.size > 40  && !enemyEffect.isShield()) {
                             retval.assign(StateTypes.ATTACK_STATE);
                             retval.assign(PlayerActions.FIRETORPEDOES);
                             aim1 = AttackHandler.aimv1(self, nearestEnemy, 20);
@@ -206,7 +183,7 @@ public class AttackState extends StateBase {
                     } else {
                         Tester.appendFile("else", "testlog.txt");
 
-                        if (self.TorpedoSalvoCount > 0 && self.size > 50) {
+                        if (self.TorpedoSalvoCount > 0 && self.size > 40) {
                             aim1 = AttackHandler.aimv1(self, nearestEnemy, 20);
                             Tester.appendFile("firing torpedoes to " + Integer.toString(aim1), "testlog.txt");
                             fireTorpedoes(aim1);
@@ -254,7 +231,7 @@ public class AttackState extends StateBase {
 
         if(!supernova.isEmpty()){
             for(int i = 1; i < playerList.size(); i++){
-                if(Tools.getDistanceBetween(supernova.get(0), playerList.get(i)) < 300 && Tools.getDistanceBetween(supernova.get(0), self) + self.size > 300){
+                if(Tools.getDistanceBetween(supernova.get(0), playerList.get(i)) < playerList.get(i).size + 20 && Tools.getDistanceBetween(supernova.get(0), self) + self.size > 200){
                     Tester.appendFile("Detonating supernova", "testlog.txt");
                     retval.assign(PlayerActions.DETONATESUPERNOVA);
                     AttackHandler.supernovaFired = false;
@@ -281,10 +258,10 @@ public class AttackState extends StateBase {
                 .stream().filter(item -> item.getGameObjectType() == ObjectTypes.TELEPORTER)
                 .collect(Collectors.toList());
 
-        if(!teleporterList.isEmpty()){
+        for(int j = 0; j < teleporterList.size(); j++){
             for(int i = 1; i < playerList.size(); i++){
                 Tester.appendFile("Distance to player: " + Tools.getDistanceBetween(teleporterList.get(0), playerList.get(i)), "testlog.txt");
-                if(Tools.getDistanceBetween(teleporterList.get(0), playerList.get(i)) < self.size + playerList.get(i).size && playerList.get(i).size < self.size){
+                if(Tools.getDistanceBetween(teleporterList.get(j), playerList.get(i)) < self.size + playerList.get(i).size && playerList.get(i).size < self.size){
                     Tester.appendFile("Teleporting", "testlog.txt");
                     retval.assign(PlayerActions.TELEPORT);
                     AttackHandler.teleporterFired = false;
@@ -292,7 +269,8 @@ public class AttackState extends StateBase {
                 }
             }
         }
-        else if(teleporterList.isEmpty() && AttackHandler.teleporterdelay < 5){
+        
+        if(teleporterList.isEmpty() && AttackHandler.teleporterdelay > 5){
             AttackHandler.teleporterEmpty = true;
         }
         else{

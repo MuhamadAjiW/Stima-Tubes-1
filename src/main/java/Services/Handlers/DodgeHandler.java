@@ -114,7 +114,7 @@ public class DodgeHandler {
                     if (time < ((bot.size+torpedoList.get(i).size)/torpedoTrajectory.vel) + 3  && time > 1){
                         cluster = 0;
                         for(int j = 0; j < torpedoList.size(); j++){
-                            if (Tools.getDistanceBetween(torpedoList.get(i), torpedoList.get(j)) < 60){
+                            if (Tools.getDistanceBetween(torpedoList.get(i), torpedoList.get(j)) < 80){
                                 Tester.appendFile("Distance with other torpedo: " + Tools.getDistanceBetween(torpedoList.get(i), torpedoList.get(j)), "testlog.txt");
                                 cluster++;
                             }

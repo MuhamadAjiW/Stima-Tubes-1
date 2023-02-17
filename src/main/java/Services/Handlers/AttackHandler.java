@@ -212,4 +212,32 @@ public class AttackHandler {
 
         return true;
     }
+
+    public static void detectState(GameState gameState){
+        List<GameObject> teleporterList;
+        List<GameObject> supernovaList;
+        
+        if (AttackHandler.teleporterEmpty){
+            teleporterList = gameState.getGameObjects()
+                            .stream().filter(item -> item.getGameObjectType() == ObjectTypes.TELEPORTER)
+                            .collect(Collectors.toList());
+    
+            if (teleporterList.isEmpty()){
+                AttackHandler.teleporterdelay = 0;
+                AttackHandler.teleporterFired = false;
+                AttackHandler.teleporterEmpty = false;
+            }
+        }
+        if (AttackHandler.supernovaEmpty){
+            supernovaList = gameState.getGameObjects()
+                            .stream().filter(item -> item.getGameObjectType() == ObjectTypes.SUPERNOVABOMB)
+                            .collect(Collectors.toList());
+    
+            if(supernovaList.isEmpty()){
+                AttackHandler.teleporterdelay = 0;
+                AttackHandler.supernovaFired = false;
+                AttackHandler.supernovaEmpty = false;
+            }
+        }
+    }
 }
