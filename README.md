@@ -99,6 +99,7 @@ https://github.com/EntelectChallenge/2021-Galaxio
 ```
 
 - Clone our Game
+
 Berikut merupakan cara untuk build project atau menginstall program
 
 1. Clone repo menggunakan command berikut
