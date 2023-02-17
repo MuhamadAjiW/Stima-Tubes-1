@@ -11,15 +11,24 @@ import Models.GameState;
 import Models.Position;
 
 public class AttackHandler {
+    // SUPERNOVA FLAGS
     public static boolean supernovaFired = false;
     public static boolean supernovaEmpty = false;
+
+    // TELEPORT FLAGS
     public static boolean teleporterFired = false;
     public static boolean teleporterPrepped = false;
     public static boolean teleporterEmpty = false;
     public static int teleporterdelay = 0;
-    private static final double longRange = 200;
-    private static final double midRange = 150;
+
+    // DISTANCE RANGE
+    private static final double longRange = 150;
+    private static final double midRange = 100;
     private static final double closeRange = 50;
+
+    // SIZE RANGE
+    private static final int bigSize = 60;
+    private static final int smallSize = 10;
 
     // CONSIDERING SIZE
     public static double realDist(GameObject o1, GameObject o2) {
@@ -33,13 +42,23 @@ public class AttackHandler {
     public static int detAttckRange(GameObject o1, GameObject o2) {
         double realDist = realDist(o1, o2);
         if (realDist <= closeRange) {
-            return 3;
+            return 1;
         } else if (realDist <= midRange) {
             return 2;
         } else if (realDist <= longRange) {
-            return 1;
+            return 3;
         } else {
-            return 0;
+            return 4;
+        }
+    }
+
+    public static int detSizeRange(GameObject o) {
+        if (o.getSize() <= smallSize) {
+            return 1;
+        } else if (o.getSize() <= bigSize) {
+            return 2;
+        } else {
+            return 3;
         }
     }
 
@@ -186,30 +205,5 @@ public class AttackHandler {
                 .collect(Collectors.toList());
 
         return aimv0(self, foodList.get(0));
-    }
-
-    // TELEPORTER
-    public static boolean canTeleportTo(GameState gs, Position telePos, GameObject self) {
-        GameObject nearestEnemy = RadarHandler.findNearEnemy(gs, telePos, self);
-        if (nearestEnemy.getId() == self.getId()) {
-            return false;
-        } else {
-            return !NavigationHandler.outsideBound(gs, telePos, self) && !RadarHandler.detectThreat(gs, self, closeRange) && RadarHandler.isOTWCollide(nearestEnemy, self, telePos);
-        }
-    }
-
-    public static boolean canTeleport(GameState gs, GameObject self) {
-        List<GameObject> tpList;
-        tpList = gs.getGameObjects()
-        .stream().filter(item -> item.getGameObjectType() == ObjectTypes.TELEPORTER)
-        .collect(Collectors.toList());
-
-        for (int i = 0; i < tpList.size(); i++) {
-            if (!canTeleportTo(gs, tpList.get(i).getPosition(), self)) {
-                return false;
-            }
-        }
-
-        return true;
     }
 }

@@ -16,6 +16,7 @@ import Services.Handlers.AttackHandler;
 import Services.Handlers.NavigationHandler;
 import Services.Handlers.RadarHandler;
 
+
 public class DefaultState extends StateBase{
     public static Response runState(){
         boolean defaultAction;
@@ -39,31 +40,27 @@ public class DefaultState extends StateBase{
             }
             else if (RadarHandler.detectEnemy(nearestEnemy, self, Radarsize)){
                 Tester.appendFile("Enemy within radar", "testlog.txt");
-                if(RadarHandler.isBig(nearestEnemy, self.size.doubleValue() )){
+                if(RadarHandler.isBig(nearestEnemy, self.size.doubleValue() + 10)){
                     Tester.appendFile("Enemy is big, size: " + nearestEnemy.size, "testlog.txt");
                     retval.assign(StateTypes.ESCAPE_STATE);
                     retval.assign(PlayerActions.FORWARD);
                     defaultAction = false;
                     AttackHandler.teleporterPrepped = false;
+                } else if(RadarHandler.isSmall(nearestEnemy, self.size.doubleValue() )){
+                    Tester.appendFile("Enemy is small, size: " + nearestEnemy.size, "testlog.txt");
+                    retval.assign(StateTypes.ATTACK_STATE);
+                    retval.assign(PlayerActions.FORWARD);
+                    defaultAction = false;
+                    AttackHandler.teleporterPrepped = false;
                 }
                 else{
-                    if(RadarHandler.isSmall(nearestEnemy, self.size.doubleValue() )){
-                        Tester.appendFile("Enemy is small, size: " + nearestEnemy.size, "testlog.txt");
-                        retval.assign(StateTypes.ATTACK_STATE);
-                        retval.assign(PlayerActions.FORWARD);
-                        defaultAction = false;
-                        AttackHandler.teleporterPrepped = false;
-                    }
-                    else{
-                        Tester.appendFile("Enemy is uncertain, size: " + nearestEnemy.size, "testlog.txt");
-                        //TODO: Gimana kalo nanggung sizenya?
-                        defaultAction = true;
-                        AttackHandler.teleporterPrepped = false;
-                    }
+                    Tester.appendFile("Enemy is uncertain, size: " + nearestEnemy.size, "testlog.txt");
+                    defaultAction = true;
+                    AttackHandler.teleporterPrepped = false;
                 }
             }
 
-            if (self.size > 50){
+            if (AttackHandler.detSizeRange(self) == 3){
                 if(!NavigationHandler.outsideBound(gameState, self)){
                     if(self.size - 30 > nearestEnemy.size && self.TeleporterCount > 0 && !AttackHandler.teleporterFired){
                         Tester.appendFile("Ship is big, attacking nonetheless", "testlog.txt");
@@ -83,7 +80,6 @@ public class DefaultState extends StateBase{
                         AttackHandler.teleporterPrepped = false;
                         AttackHandler.teleporterdelay = 0;
                     }
-                     
                 }
             }
         }
@@ -139,10 +135,14 @@ public class DefaultState extends StateBase{
             newHeading = Tools.getHeadingBetween(foodList.get(0), self);
             xAwal = (foodList.get(0).getPosition().x);
             yAwal = (foodList.get(0).getPosition().y);
+            Position awal = new Position(xAwal, yAwal);
             for (int i=1; i<foodList.size(); i++){
-              if((Tools.getDistanceBetween(foodList.get(0), foodList.get(i))) <= (sizeSelf - foodThreshold)){
+
+              if((Tools.getDistanceBetween(awal, foodList.get(i).getPosition())) <= (sizeSelf - foodThreshold)){
                 xAwal = (foodList.get(i).getPosition().x + xAwal) / 2;
                 yAwal = (foodList.get(i).getPosition().y + yAwal) / 2;
+                awal.setX(xAwal);
+                awal.setY(yAwal);
               } else {
                   break;
               }
