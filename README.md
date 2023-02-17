@@ -92,8 +92,11 @@ Contributors:
 
 ### Installation
 - Clone the Game Engine
+
 Follow the instruction on the Galaxio GitHub
+```
 https://github.com/EntelectChallenge/2021-Galaxio
+```
 
 - Clone our Game
 Berikut merupakan cara untuk build project atau menginstall program
@@ -116,11 +119,12 @@ Java -jar JavaBot.jar
 ```
 
 
+
 ### Program Execution
-    git clone https://github.com/alishalistyaa/Algeo01-21095
-    mvn clean package
-    java Main
-This repo also includes a jar file that you can set up and run more practically!
+1. Jalankan Visualizer
+2. Pilihlah log yang terdapat di logger-publish pada starter-pack
+yang kamu telah install sebelumnya.
+
 
 
 Brought to you by 
