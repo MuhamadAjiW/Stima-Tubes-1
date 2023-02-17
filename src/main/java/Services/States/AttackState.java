@@ -88,7 +88,7 @@ public class AttackState extends StateBase {
                 defaultAction = false;
             }
             // BIG SELF SIZE
-            if (AttackHandler.detSizeRange(self) == 3) {
+            else if (AttackHandler.detSizeRange(self) == 3) {
                 Tester.appendFile("Big self size", "testlog.txt");
                 // PREP TELEPORT
                 if (self.size - 30 > nearestEnemy.size && self.TeleporterCount > 0 && !AttackHandler.teleporterFired) {

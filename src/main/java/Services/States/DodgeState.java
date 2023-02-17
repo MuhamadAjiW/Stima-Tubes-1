@@ -38,7 +38,7 @@ public class DodgeState extends StateBase {
             //TODO: IMPLEMENTASI DODGE STATE
             Tester.appendFile("Dodging torpedo", "testlog.txt");
             Tester.appendFile("Shield count: " + self.ShieldCount, "testlog.txt");
-            if(DodgeHandler.critical && self.ShieldCount > 0 && self.size > 25){
+            if(DodgeHandler.critical && self.ShieldCount > 0 && self.size > 30){
                 retval.assign(PlayerActions.ACTIVATESHIELD);
                 Tester.appendFile("Shields deployed", "testlog.txt");
             }
