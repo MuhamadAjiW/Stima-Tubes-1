@@ -101,7 +101,7 @@ public class AttackState extends StateBase {
                     defaultAction = false;
                 // FIRE TPD
                 } else if (self.TorpedoSalvoCount > 0 && self.size > tpdSizeTH) {
-                    fixAim = AttackHandler.aimv1(self, nearestEnemy, 20) + nEnemyTorsi * 4;
+                    fixAim = AttackHandler.aimv1(self, nearestEnemy, 20) + nEnemyTorsi * 3;
                     Tester.appendFile("firing torpedoes to " +  Integer.toString(fixAim), "testlog.txt");
                     fireTorpedoes(fixAim);
                     retval.assign(StateTypes.ATTACK_STATE);
@@ -202,7 +202,7 @@ public class AttackState extends StateBase {
                                 if (self.TorpedoSalvoCount > 0  && self.size > tpdSizeTH  && !enemyEffect.isShield()) {
                                     retval.assign(StateTypes.ATTACK_STATE);
                                     retval.assign(PlayerActions.FIRETORPEDOES);
-                                    fixAim = AttackHandler.aimv1(self, nearestEnemy, 20) + nEnemyTorsi * 4;
+                                    fixAim = AttackHandler.aimv1(self, nearestEnemy, 20) + nEnemyTorsi * 1;
                                     retval.assign(fixAim);
                                     defaultAction = false;
                                     Tester.appendFile("firing torpedoes to " + Integer.toString(fixAim), "testlog.txt");
@@ -224,7 +224,7 @@ public class AttackState extends StateBase {
                                         Tester.appendFile("enemy is near gas cloud", "testlog.txt");
                                         fixAim = AttackHandler.aimv3(self,nearestEnemy, nearestGasCloud);
                                     } else {
-                                        fixAim = AttackHandler.aimv1(self,nearestEnemy,20) + nEnemyTorsi * 4;
+                                        fixAim = AttackHandler.aimv1(self,nearestEnemy,20) + nEnemyTorsi * 2;
                                         
                                     }
                                     Tester.appendFile("firing torpedoes to aim1: " + Integer.toString(fixAim), "testlog.txt");
@@ -240,7 +240,7 @@ public class AttackState extends StateBase {
                                 break;
                             case 3:
                                 if (self.TorpedoSalvoCount > 0 && self.size > tpdSizeTH) {
-                                    fixAim = AttackHandler.aimv1(self,nearestEnemy,20) + nEnemyTorsi * 4;
+                                    fixAim = AttackHandler.aimv1(self,nearestEnemy,20) + nEnemyTorsi * 3;
                                     retval.assign(fixAim);
                                     Tester.appendFile("firing torpedoes to aim1: " + Integer.toString(fixAim), "testlog.txt");
                                     retval.assign(StateTypes.ATTACK_STATE);
@@ -255,12 +255,11 @@ public class AttackState extends StateBase {
                             default:
                                 retval.assign(StateTypes.DEFAULT_STATE);
                                 retval.assign(PlayerActions.FORWARD);
-                                
                         }
                     }
                 } else { // size nanggung
                     if (AttackHandler.detAttckRange(self, nearestEnemy) <= 2 && self.TorpedoSalvoCount > 0 && self.size > tpdSizeTH && !enemyEffect.isShield()) {
-                        fixAim = AttackHandler.aimv1(self, nearestEnemy, 20) + nEnemyTorsi * 4;
+                        fixAim = AttackHandler.aimv1(self, nearestEnemy, 20) + nEnemyTorsi * 3;
                         Tester.appendFile("firing torpedoes to " + Integer.toString(fixAim), "testlog.txt");
                         fireTorpedoes(fixAim);
                         retval.assign(StateTypes.ATTACK_STATE);
@@ -339,7 +338,7 @@ public class AttackState extends StateBase {
                 }
             }
         }
-        else if(teleporterList.isEmpty() && AttackHandler.teleporterdelay < 5){
+        else if(teleporterList.isEmpty() && AttackHandler.teleporterdelay > 5){
             AttackHandler.teleporterEmpty = true;
         }
         else{

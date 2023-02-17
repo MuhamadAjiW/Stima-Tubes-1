@@ -206,29 +206,4 @@ public class AttackHandler {
 
         return aimv0(self, foodList.get(0));
     }
-
-    // TELEPORTER
-    public static boolean canTeleportTo(GameState gs, Position telePos, GameObject self) {
-        GameObject nearestEnemy = RadarHandler.findNearEnemy(gs, telePos, self);
-        if (nearestEnemy.getId() == self.getId()) {
-            return false;
-        } else {
-            return !NavigationHandler.outsideBound(gs, telePos, self) && !RadarHandler.detectThreat(gs, self, closeRange) && RadarHandler.isOTWCollide(nearestEnemy, self, telePos);
-        }
-    }
-
-    public static boolean canTeleport(GameState gs, GameObject self) {
-        List<GameObject> tpList;
-        tpList = gs.getGameObjects()
-        .stream().filter(item -> item.getGameObjectType() == ObjectTypes.TELEPORTER)
-        .collect(Collectors.toList());
-
-        for (int i = 0; i < tpList.size(); i++) {
-            if (!canTeleportTo(gs, tpList.get(i).getPosition(), self)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
 }

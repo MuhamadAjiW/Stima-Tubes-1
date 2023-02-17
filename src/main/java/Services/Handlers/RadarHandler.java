@@ -35,35 +35,6 @@ public class RadarHandler {
         }
         return detected;
     }
-    
-    public static Position getPositionAfter(GameObject o, int tick) {
-        int x = (int) (o.getPosition().x + tick * o.getSpeed() * Math.cos(Math.toRadians(o.getHeading())));
-        int y = (int) (o.getPosition().y + tick * o.getSpeed() * Math.sin(Math.toRadians(o.getHeading())));
-        return new Position(x,y);
-    }
-
-    public static boolean isOTWCollide(GameObject enemy, GameObject self, Position surpPos) {
-        Position toBe = getPositionAfter(enemy, 1);
-        double jP = Tools.getDistanceBetween(toBe, surpPos);
-        double bA = enemy.getSize() + self.getSize();
-        return jP < bA;
-    }
-
-    public static GameObject findNearEnemy(GameState gs, Position p, GameObject self) {
-        List<GameObject> playerList;
-        playerList = gs.getPlayerGameObjects().stream()
-                    .sorted(Comparator.comparing(item -> Tools.getDistanceBetween(p, item.getPosition())))
-                    .collect(Collectors.toList());
-        if (playerList.size() > 1) {
-            if (playerList.get(0).getId() == self.getId()) {
-                return playerList.get(1);
-            } else {
-                return playerList.get(0);
-            }
-        } else {
-            return self;
-        }
-    }
 
     public static boolean isSmall(GameObject otherObject, Double threshold){
         boolean small;
