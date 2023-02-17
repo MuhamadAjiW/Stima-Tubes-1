@@ -114,9 +114,9 @@ git clone https://github.com/MuhamadAjiW/Tubes1_T-T-k3n5l3rBr30w0gh-T-T.git
 mvn clean package
 ```
 3. Jalankan run.sh
-4. Jalankan JavaBot.jar dengan menggunakan command berikut pada folder target
+4. Jalankan T-T-k3n5l3rBr30w0gh-T-T.jar dengan menggunakan command berikut pada folder target
 ```
-Java -jar JavaBot.jar
+Java -jar T-T-k3n5l3rBr30w0gh-T-T.jar
 ```
 
 
@@ -133,7 +133,8 @@ world's biggest basreng fans x_X
 now brewokans
 
 
- ㅡ♡Xx_Bwasr3ngL0vers69_xX♡ㅡ
- 2022
- *featuring pika pika*
- ![image](https://user-images.githubusercontent.com/73476678/193554104-e5aaa721-6785-4b6a-b39f-f6ae0d835416.png)
+ T-T-k3n5l3rBr30w0gh-T-T
+ 2023
+ *featuring hamster hUwUw*
+ ![S__32890906](https://user-images.githubusercontent.com/88751131/219708114-111b7bfa-05a4-46ca-b05e-612723a21ee1.png)
+
