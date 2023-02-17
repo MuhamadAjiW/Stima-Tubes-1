@@ -17,7 +17,7 @@ import Services.Handlers.AttackHandler;
 public class EscapeState extends StateBase {
     public static Response runState(){
         boolean defaultAction;
-        int enemyDirection;
+        int enemyDirection, fixAim;
         List<GameObject> playerList;
         
         defaultAction = true;
@@ -44,8 +44,10 @@ public class EscapeState extends StateBase {
             else{
                 Tester.appendFile("Enemy distance: " + Tools.getDistanceBetween(self, playerList.get(1)), "testlog.txt");
                 Tester.appendFile("Torpedo count: " + self.TorpedoSalvoCount, "testlog.txt");
-                if(self.TorpedoSalvoCount > 0 && self.size > 20){
-                    fireTorpedoes(AttackHandler.aimv1(self, playerList.get(1), 20));
+                if(self.TorpedoSalvoCount > 0 && self.size > AttackState.tpdSizeTH){
+                    fixAim = AttackHandler.aimv1(self, playerList.get(1), 20) + Tools.tandaTorsi(self, playerList.get(1)) * 4;
+                    Tester.appendFile("Firing torpedoes from escape", "testlog.txt");
+                    fireTorpedoes(fixAim);
                     defaultAction = false;
                 }
 

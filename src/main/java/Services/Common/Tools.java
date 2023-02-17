@@ -105,4 +105,18 @@ public class Tools {
     public static boolean isTegak(int deg) {
         return deg == 0 || deg == 90 || deg == 180 || deg == 360;
     }
+
+    public static int tandaTorsi(GameObject self, GameObject enemy) {
+        // -1 = cw, 0 = ke pusat, 1: ccw
+        int hbReversed = getHeadingBetween(self, enemy);
+        int hplus = valDeg(hbReversed + 90);
+        int hmin = valDeg(hbReversed - 90);
+        if (absDegDelta(hplus, hbReversed) < absDegDelta(hmin, hbReversed)) { // cw
+            return -1;
+        } else if (absDegDelta(hplus, hbReversed) == absDegDelta(hmin, hbReversed)) { // ke pusat
+            return 0;
+        } else {
+            return 1;
+        }
+    }
 }
