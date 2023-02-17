@@ -24,6 +24,7 @@ public class StateBase {
     public static double Radarsize = 100;
     public static double smallThreshold = 100;
 
+
     public static void updateState(GameState newGameState, GameObject bot, PlayerAction action){
         gameState = newGameState;
         self = bot;

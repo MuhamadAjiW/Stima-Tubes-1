@@ -260,7 +260,7 @@ public class AttackState extends StateBase {
 
         for(int j = 0; j < teleporterList.size(); j++){
             for(int i = 1; i < playerList.size(); i++){
-                Tester.appendFile("Distance to player: " + Tools.getDistanceBetween(teleporterList.get(0), playerList.get(i)), "testlog.txt");
+                Tester.appendFile("Distance to player: " + Tools.getDistanceBetween(teleporterList.get(j), playerList.get(i)), "testlog.txt");
                 if(Tools.getDistanceBetween(teleporterList.get(j), playerList.get(i)) < self.size + playerList.get(i).size && playerList.get(i).size < self.size){
                     Tester.appendFile("Teleporting", "testlog.txt");
                     retval.assign(PlayerActions.TELEPORT);
